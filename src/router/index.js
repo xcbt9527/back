@@ -12,7 +12,10 @@ let routes = [
   {
     path: '/index',
     name: 'index',
-    component: index
+    component: index,
+    children: [
+      {path: '/article', component: resolve => require(['../components/article/article.ts'], resolve)}
+    ]
   }
 ]
 

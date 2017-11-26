@@ -8,10 +8,11 @@ import htmltepl from "./login.html";
 import src from '@/utils/http.ts';
 import api from "@/utils/api.ts";
 import {Usermodel} from "../../model/user";
+import {mapMutations} from 'vuex';
 @Component({
   template: htmltepl,
   name: 'login',
-  components: {}
+  components: {},
 })
 
 export default class login extends Vue {
@@ -22,11 +23,6 @@ export default class login extends Vue {
     name: null,
     password: null
   }
-  tableData: Array<any> = [{
-    date: '2016-05-02',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1518 弄'
-  }];
 
   submitForm(formName) {
     (this.$refs[formName] as any).validate((valid) => {
