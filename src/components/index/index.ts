@@ -12,9 +12,6 @@ import htmltepl from "./index.html";
 })
 
 export default class index extends Vue {
-  tableData: Array<any> = [{
-    date: '2016-05-02',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1518 弄'
-  }];
+  menu: Array<any> = [{title: '文章管理', index: '1', children: [{path: '/article', title: '文章管理', index: '1-1'}]}];
+  showmenu: Array<any> = ['1'];
 }

@@ -1,3 +1,49 @@
 <div>
- <div>1</div>
+  <el-button type="text" @click="addarticle">新增</el-button>
+  <el-table
+    :data="articlearr"
+    style="width: 100%">
+    <el-table-column
+      label="日期">
+      <template slot-scope="scope">
+        <i class="el-icon-time"></i>
+        <span style="margin-left: 10px">{{ scope.row.createtime }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="标题">
+      <template slot-scope="scope">
+        <p> {{ scope.row.title }}</p>
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="状态">
+      <template slot-scope="scope">
+        <p> {{ scope.row.state }}</p>
+      </template>
+    </el-table-column>
+    <el-table-column label="操作">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          @click="handleEdit(scope.$index, scope.row)">编辑
+        </el-button>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">删除
+        </el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+  <el-dialog
+    :title="title"
+    :visible.sync="articledialogVisible"
+    :before-close="handleClose">
+    <span>这是一段信息</span>
+    <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="confirm">确 定</el-button>
+  </span>
+  </el-dialog>
 </div>
