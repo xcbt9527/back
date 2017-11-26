@@ -8,6 +8,10 @@ import qs from 'qs'
 
 axios.interceptors.request.use(config => {
   // loading
+  let key = sessionStorage.getItem('key');
+  if (key) {
+    config.headers.common['key'] = key;
+  }
   return config
 }, error => {
   return Promise.reject(error)
@@ -22,11 +26,13 @@ axios.interceptors.response.use(response => {
 function checkStatus(response) {
   // loading
   // 如果http状态码正常，则直接返回数据
+  let vm = this;
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
     return response.data;
     // 如果不需要除了data之外的数据，可以直接 return response.data
   }
   // 异常状态下，把错误信息返回去
+  this.$message.error('网络有问题，请检查网络');
   return {
     status: -404,
     msg: '网络异常'

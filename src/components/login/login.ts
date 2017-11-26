@@ -7,6 +7,7 @@ import {Component, Watch} from 'vue-property-decorator';
 import htmltepl from "./login.html";
 import src from '@/utils/http.ts';
 import api from "@/utils/api.ts";
+import {Usermodel} from "../../model/user";
 @Component({
   template: htmltepl,
   name: 'login',
@@ -17,20 +18,36 @@ export default class login extends Vue {
   username: string = '';
   password: string = '';
   loading: boolean = false;
+  numberValidateForm: Object = {
+    name: null,
+    password: null
+  }
   tableData: Array<any> = [{
     date: '2016-05-02',
     name: '王小虎',
     address: '上海市普陀区金沙江路 1518 弄'
   }];
-  toLoading() {
-    let vm = this;
-    this.loading = true;
-    src.post(api.login, {username: this.username, password: this.password}).then(res => {
-      this.loading = false;
-      if (res) {
+
+  submitForm(formName) {
+    (this.$refs[formName] as any).validate((valid) => {
+      if (valid) {
+        src.post(api.login, this.numberValidateForm).then(res => {
+          if (res.status !== 10000) {
+            this.$message.error(res.msg);
+          } else {
+            let model: Usermodel = res.data;
+            sessionStorage.setItem('key', model.session_store);
+            this.$message.success(res.msg);
+            this.$router.push({path: '/index'});
+          }
+        })
       } else {
-        (this.$router as any).push({name: 'index'});
+        return false;
       }
-    })
+    });
+  };
+
+  resetForm(formName) {
+    (this.$refs[formName] as any).resetFields();
   }
 }
