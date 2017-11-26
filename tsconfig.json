@@ -1,0 +1,26 @@
+{
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "module": "es6",
+    "target": "es5",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "sourceMap": true,
+    "pretty": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
