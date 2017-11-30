@@ -8,7 +8,9 @@ import Vuex from 'vuex';
 Vue.use(ElementUI);
 Vue.use(Vuex);
 Vue.use(ElementUI, {size: 'small'}); //全局配置对象
-Vue.config.productionTip = false
+import VueQuillEditor from 'vue-quill-editor';
+Vue.use(VueQuillEditor);
+Vue.config.productionTip = false;
 const store = new Vuex.Store({
   // 存储状态值
   state: {
