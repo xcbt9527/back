@@ -20,8 +20,10 @@ export default class article extends Vue {
   title: string = 'null';
   articledialogVisible: boolean = false;
   articleobj: any = {};
+  editorOption: any = {};
 
   mounted() {
+    // console.log(articlemodel);
     this.init();
   }
 
@@ -35,12 +37,20 @@ export default class article extends Vue {
 
   //编辑
   handleEdit(index, row) {
-    console.log(index, row);
+    src.post(api.getarticleRecord, {id: row.id}).then(res => {
+      console.log(res);
+      this.articleobj = res;
+      this.title = '编辑';
+      this.articledialogVisible = !this.articledialogVisible;
+    })
   };
 
   //删除
   handleDelete(index, row) {
     console.log(index, row);
+    src.post(api.delectarticleRecord, {id: row.id}).then(res => {
+      console.log(res);
+    })
   }
 
   //关闭
@@ -65,5 +75,10 @@ export default class article extends Vue {
   //保存
   confirm() {
 
+    (this.$refs['ValidateForm'] as any).validate((valid) => {
+      src.post(api.SavearticleRecord, this.articleobj).then(res => {
+        console.log(res);
+      })
+    })
   }
 }

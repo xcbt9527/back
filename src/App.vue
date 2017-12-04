@@ -12,4 +12,7 @@ export default {
 
 <style lang="sass">
   @import "./sass/theme";
+  @import 'quill/dist/quill.core.css';
+  @import 'quill/dist/quill.snow.css';
+  @import 'quill/dist/quill.bubble.css';
 </style>
