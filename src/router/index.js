@@ -14,7 +14,8 @@ let routes = [
     name: 'index',
     component: index,
     children: [
-      {path: '/article', component: resolve => require(['../components/article/article.ts'], resolve)}
+      {path: '/sysuser', component: resolve => require(['../components/sys/user/user.ts'], resolve)},
+      {path: '/shoplist', component: resolve => require(['../components/shoplist/shoplist.ts'], resolve)},
     ]
   }
 ]

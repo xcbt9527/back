@@ -33,4 +33,6 @@ export class Usermodel {
    * session ID
    * */
   session_store: string = null;
+  token: string = null;
+  sysuser: string = null;
 }

@@ -32,7 +32,7 @@ export default class login extends Vue {
             this.$message.error(res.msg);
           } else {
             let model: Usermodel = res.data;
-            sessionStorage.setItem('key', model.session_store);
+            sessionStorage.setItem('key', model.token);
             sessionStorage.setItem('account', JSON.stringify(res.data));
             this.$message.success(res.msg);
             this.$router.push({path: '/index'});
