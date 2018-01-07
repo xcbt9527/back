@@ -10,7 +10,6 @@ import {Component, Watch} from 'vue-property-decorator';
 import htmltepl from "./user.html";
 import src from '@/utils/http.ts';
 import api from "@/utils/api.ts";
-import {Usermodel} from "../../../model/user";
 @Component({
   template: htmltepl,
   name: 'user',
