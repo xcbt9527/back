@@ -15,9 +15,4 @@ export default {
   getAllshop: shop + 'getAllshop',  //获取所有商品
   DeleteRecordshop: shop + 'DeleteRecord',//修改状态
   SaveRecordshop: shop + 'SaveRecord',  //保存信息
-  //===========================文章================================================//
-  articleall: shop + "articleall",  //获取所有文章
-  getarticleRecord: shop + "getRecord", //获取单条文章
-  SavearticleRecord: shop + "SaveRecord",  //保存文章
-  delectarticleRecord: shop + "delectRecord",  //删除文章
 }
