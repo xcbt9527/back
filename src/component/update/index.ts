@@ -1,0 +1,42 @@
+/**
+ * Created by baird on 18/1/15.
+ */
+/**
+ * Created by momo on 2018/1/4.
+ */
+/**
+ * Created by momo on 2017/11/13.
+ */
+
+import Vue from 'vue';
+import {Component, Watch} from 'vue-property-decorator';
+import htmltepl from "./index.html";
+@Component({
+  template: htmltepl,
+  name: 'm-update',
+  components: {}
+})
+
+export default class updatets extends Vue {
+  img: string = null;
+
+  update() {
+    (this.$refs.file as any).click();
+  }
+
+  updateimg(e) {
+    console.log(e);
+    let vm = this;
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.onloadend = function () {
+      // 图片的 base64 格式, 可以直接当成 img 的 src 属性值
+      let dataURL = reader.result;
+      let img = new Image();
+      img.src = dataURL;
+      vm.img = dataURL;
+      vm.$emit('update:base64', dataURL);
+    };
+    reader.readAsDataURL(file); // 读出 base64
+  }
+}

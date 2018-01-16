@@ -35,7 +35,7 @@ function checkStatus(response) {
     // 如果不需要除了data之外的数据，可以直接 return response.data
   }
   // 异常状态下，把错误信息返回去
-  this.$message.error('网络有问题，请检查网络');
+  alert('网络有问题，请检查网络');
   return {
     status: -404,
     msg: '网络异常'

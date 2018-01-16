@@ -5,10 +5,11 @@ import App from './App'
 import router from './router';
 import ElementUI from 'element-ui';
 import Vuex from 'vuex';
+import VueQuillEditor from 'vue-quill-editor';
+import "./component";
 Vue.use(ElementUI);
 Vue.use(Vuex);
 Vue.use(ElementUI, {size: 'small'}); //全局配置对象
-import VueQuillEditor from 'vue-quill-editor';
 Vue.use(VueQuillEditor);
 Vue.config.productionTip = false;
 const store = new Vuex.Store({

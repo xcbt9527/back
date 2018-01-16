@@ -47,7 +47,26 @@
       { required: true, message: '商品名称不能为空'}
     ]"
       >
-        <el-input type="text" v-model.number="userobj.title" auto-complete="off"></el-input>
+        <el-input type="text" v-model="userobj.title" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item
+        label="商品图片"
+        prop="picture"
+        :rules="[
+      { required: true, message: '商品图片不能为空'}
+    ]"
+      >
+        <m-update :base64.sync="userobj.picture"></m-update>
+        <!--<el-input type="text" v-model="userobj.picture" auto-complete="off"></el-input>-->
+      </el-form-item>
+      <el-form-item
+        label="详细图"
+        prop="details"
+        :rules="[
+      { required: true, message: '详细图不能为空'}
+    ]"
+      >
+        <m-update :base64.sync="userobj.details"></m-update>
       </el-form-item>
       <el-form-item
         label="状态"

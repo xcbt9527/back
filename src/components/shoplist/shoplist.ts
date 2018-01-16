@@ -31,7 +31,9 @@ export default class article extends Vue {
 
   init() {
     src.post(api.getAllshop, null).then(res => {
-      this.userarr = res;
+      if (res) {
+        this.userarr = res;
+      }
     })
   }
 
@@ -52,9 +54,13 @@ export default class article extends Vue {
     };
   }
 
+  //更改状态
+  handleDelete() {
+
+  }
+
   //保存
   confirm() {
-
     (this.$refs['ValidateForm'] as any).validate((valid) => {
       if (valid) {
         src.post(api.SaveRecordshop, this.userobj).then(res => {
@@ -64,5 +70,18 @@ export default class article extends Vue {
         })
       }
     })
+  }
+
+  update(e) {
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.onloadend = function () {
+      // 图片的 base64 格式, 可以直接当成 img 的 src 属性值
+      let dataURL = reader.result;
+      let img = new Image();
+      img.src = dataURL;
+      e.value = dataURL;
+    };
+    reader.readAsDataURL(file); // 读出 base64
   }
 }
