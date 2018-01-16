@@ -55,7 +55,7 @@ export default class article extends Vue {
       picture: '',
       state: 1,
       title: '',
-      edit: '12312312312312313',
+      editor: '12312312312312313',
     };
   }
 
@@ -76,7 +76,9 @@ export default class article extends Vue {
       }
     })
   }
-
+  editor(val) {
+    this.userobj.details = val;
+  }
   update(e) {
     let file = e.target.files[0];
     let reader = new FileReader();

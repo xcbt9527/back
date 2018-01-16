@@ -39,13 +39,8 @@
         <m-update :base64.sync="userobj.picture" v-model="userobj.picture"></m-update>
         <!--<el-input type="text" v-model="userobj.picture" auto-complete="off"></el-input>-->
       </el-form-item>
-      <el-form-item label="详细图" prop="details" :rules="[
-      { required: true, message: '详细图不能为空'}
-    ]">
-        <m-update :base64.sync="userobj.details" v-model="userobj.details"></m-update>
-      </el-form-item>
-      <el-form-item label="编辑框" prop="state">
-        <vue-html5-editor :content="userobj.edit" :height="500"></vue-html5-editor>
+      <el-form-item label="商品详情" prop="state">
+        <vue-html5-editor :content="userobj.details" :height="500" @change="editor"></vue-html5-editor>
       </el-form-item>
       <el-form-item label="状态" prop="state">
         <el-switch v-model="userobj.state" :active-value="1" :inactive-value="0">
