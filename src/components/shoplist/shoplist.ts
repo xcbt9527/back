@@ -6,7 +6,7 @@
  */
 
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import { Component, Watch } from 'vue-property-decorator';
 import htmltepl from "./shoplist.html";
 import src from '@/utils/http.ts';
 import api from "@/utils/api.ts";
@@ -39,7 +39,6 @@ export default class article extends Vue {
 
   //编辑
   handleEdit(row) {
-    console.log(row);
     this.userobj = row;
     this.userdialogVisible = true;
     this.title = '编辑';
@@ -51,7 +50,11 @@ export default class article extends Vue {
     this.userdialogVisible = true;
     this.title = '新增';
     this.userobj = {
-      AutoId: 0
+      AutoId: 0,
+      details: null,
+      picture: null,
+      state: 1,
+      title: null
     };
   }
 
