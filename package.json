@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "element-ui": "^2.0.5",
+    "font-awesome": "^4.7.0",
     "sass": "^1.0.0-beta.3",
     "vue": "^2.5.2",
+    "vue-awesome": "^2.3.4",
     "vue-quill-editor": "^3.0.3",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
@@ -50,6 +52,7 @@
     "typescript": "^2.6.1",
     "url-loader": "^0.5.8",
     "vue-class-component": "^6.1.0",
+    "vue-html5-editor": "^1.1.1",
     "vue-loader": "^13.3.0",
     "vue-property-decorator": "^6.0.0",
     "vue-style-loader": "^3.0.1",

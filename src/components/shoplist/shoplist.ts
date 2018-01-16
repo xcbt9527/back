@@ -51,10 +51,11 @@ export default class article extends Vue {
     this.title = '新增';
     this.userobj = {
       AutoId: 0,
-      details: null,
-      picture: null,
+      details: '',
+      picture: '',
       state: 1,
-      title: null
+      title: '',
+      edit: '12312312312312313',
     };
   }
 
