@@ -1,7 +1,7 @@
 <div>
   <input type="file" ref="file" style="display: none;" @change="updateimg">
   <div class="fileimg" @click="update">
-    <span v-if="!img">上传</span>
-    <img :src="img">
+    <span v-if="!value">上传</span>
+    <img :src="value">
   </div>
 </div>

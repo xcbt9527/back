@@ -9,7 +9,7 @@
  */
 
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import { Component, Watch, Prop } from 'vue-property-decorator';
 import htmltepl from "./index.html";
 @Component({
   template: htmltepl,
@@ -18,8 +18,8 @@ import htmltepl from "./index.html";
 })
 
 export default class updatets extends Vue {
-  img: string = null;
 
+  @Prop({ default: true }) value: string; //获取v-model
   update() {
     (this.$refs.file as any).click();
   }
@@ -34,7 +34,6 @@ export default class updatets extends Vue {
       let dataURL = reader.result;
       let img = new Image();
       img.src = dataURL;
-      vm.img = dataURL;
       vm.$emit('update:base64', dataURL);
     };
     reader.readAsDataURL(file); // 读出 base64

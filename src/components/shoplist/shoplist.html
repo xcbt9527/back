@@ -56,7 +56,7 @@
       { required: true, message: '商品图片不能为空'}
     ]"
       >
-        <m-update :base64.sync="userobj.picture"></m-update>
+        <m-update :base64.sync="userobj.picture" v-model="userobj.picture"></m-update>
         <!--<el-input type="text" v-model="userobj.picture" auto-complete="off"></el-input>-->
       </el-form-item>
       <el-form-item
@@ -66,7 +66,7 @@
       { required: true, message: '详细图不能为空'}
     ]"
       >
-        <m-update :base64.sync="userobj.details"></m-update>
+        <m-update :base64.sync="userobj.details" v-model="userobj.details"></m-update>
       </el-form-item>
       <el-form-item
         label="状态"

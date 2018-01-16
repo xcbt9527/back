@@ -39,6 +39,7 @@ export default class article extends Vue {
 
   //编辑
   handleEdit(row) {
+    console.log(row);
     this.userobj = row;
     this.userdialogVisible = true;
     this.title = '编辑';
