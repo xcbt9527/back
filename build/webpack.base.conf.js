@@ -78,11 +78,7 @@ module.exports = {
       {
         test: /\.sass$/,
         loaders: ['style', 'css', 'sass']
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2|png)\w*/,
-        loader: 'file'
-    }
+      }
     ]
   }
 }
