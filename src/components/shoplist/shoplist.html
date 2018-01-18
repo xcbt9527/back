@@ -4,7 +4,7 @@
     <el-table-column label="修改时间">
       <template slot-scope="scope">
         <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{ scope.row.logintime }}</span>
+        <span style="margin-left: 10px">{{ scope.row.logintime |moment}}</span>
       </template>
     </el-table-column>
     <el-table-column label="商品名称">

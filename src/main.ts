@@ -6,11 +6,16 @@ import router from './router';
 import ElementUI from 'element-ui';
 import Vuex from 'vuex';
 import VueHtml5Editor from 'vue-html5-editor';
-import '_font-awesome@4.7.0@font-awesome/css/font-awesome.css'; 
+import '_font-awesome@4.7.0@font-awesome/css/font-awesome.css';
 import "./component";
+import store from "./store/index.ts";
+import * as filters from "./filters/index.ts";
 Vue.use(ElementUI);
 Vue.use(Vuex);
 Vue.use(ElementUI, { size: 'small' }); //全局配置对象
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key]);
+});
 Vue.use(VueHtml5Editor, {
   // 全局组件名称，使用new VueHtml5Editor(options)时该选项无效  
   // global component name 
@@ -147,22 +152,6 @@ Vue.use(VueHtml5Editor, {
   }
 });
 Vue.config.productionTip = false;
-const store = new Vuex.Store({
-  // 存储状态值
-  state: {
-    account: {}
-  },
-  // 状态值的改变方法,操作状态值
-  // 提交mutations是更改Vuex状态的唯一方法
-  mutations: {
-    setaccount(item) {
-      this.$state.account = item;
-    }
-  },
-  // 在store中定义getters（可以认为是store的计算属性）。Getters接收state作为其第一个函数
-  getters: {},
-  actions: {}
-})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

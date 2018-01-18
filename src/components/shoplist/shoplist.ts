@@ -10,6 +10,7 @@ import { Component, Watch } from 'vue-property-decorator';
 import htmltepl from "./shoplist.html";
 import src from '@/utils/http.ts';
 import api from "@/utils/api.ts";
+import { Getter } from 'vuex-class';
 @Component({
   template: htmltepl,
   name: 'shoplist',
@@ -23,10 +24,11 @@ export default class article extends Vue {
   userdialogVisible1: boolean = false;
   userobj: any = {};
   editorOption: any = {};
-
+  @Getter('account') account;
   mounted() {
     // console.log(articlemodel);
     this.init();
+    console.log(this.account);
   }
 
   init() {

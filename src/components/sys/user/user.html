@@ -1,89 +1,60 @@
 <div>
   <el-button type="text" @click="addarticle">新增</el-button>
-  <el-table
-    :data="userarr"
-    style="width: 100%">
-    <el-table-column
-      label="日期">
+  <el-table :data="userarr" style="width: 100%">
+    <el-table-column label="日期">
       <template slot-scope="scope">
         <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{ scope.row.logintime }}</span>
+        <span style="margin-left: 10px">{{ scope.row.logintime |moment}}</span>
       </template>
     </el-table-column>
-    <el-table-column
-      label="姓名">
+    <el-table-column label="姓名">
       <template slot-scope="scope">
         <p> {{ scope.row.name }}</p>
       </template>
     </el-table-column>
-    <el-table-column
-      label="状态">
+    <el-table-column label="状态">
       <template slot-scope="scope">
         <p> {{ scope.row.state===1?'可用':'禁用' }}</p>
       </template>
     </el-table-column>
     <el-table-column label="操作">
       <template slot-scope="scope">
-        <el-button
-          size="mini"
-          @click="handleEdit(scope.row)">编辑
+        <el-button size="mini" @click="handleEdit(scope.row)">编辑
         </el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="modify(scope.row)">修改密码
+        <el-button size="mini" type="danger" @click="modify(scope.row)">修改密码
         </el-button>
       </template>
     </el-table-column>
   </el-table>
-  <el-dialog
-    :title="title"
-    :visible.sync="userdialogVisible">
+  <el-dialog :title="title" :visible.sync="userdialogVisible">
     <el-form :model="userobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item
-        label="姓名"
-        prop="name"
-        :rules="[
+      <el-form-item label="姓名" prop="name" :rules="[
       { required: true, message: '姓名不能为空'}
-    ]"
-      >
+    ]">
         <el-input type="text" v-model.number="userobj.name" auto-complete="off"></el-input>
       </el-form-item>
-      <el-form-item
-        label="状态"
-        prop="state"
-      >
-        <el-switch
-          v-model="userobj.state"
-          :active-value="1"
-          :inactive-value="0"
-        >
+      <el-form-item label="状态" prop="state">
+        <el-switch v-model="userobj.state" :active-value="1" :inactive-value="0">
         </el-switch>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-    <el-button @click="userdialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="confirm">确 定</el-button>
-  </span>
+      <el-button @click="userdialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="confirm">确 定</el-button>
+    </span>
   </el-dialog>
 
-  <el-dialog
-    :title="title"
-    :visible.sync="userdialogVisible1">
+  <el-dialog :title="title" :visible.sync="userdialogVisible1">
     <el-form :model="userobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item
-        label="密码"
-        prop="password"
-        :rules="[
+      <el-form-item label="密码" prop="password" :rules="[
       { required: true, message: '密码不能为空'}
-    ]"
-      >
+    ]">
         <el-input type="password" v-model.number="userobj.password" auto-complete="off"></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-    <el-button @click="userdialogVisible1 = false">取 消</el-button>
-    <el-button type="primary" @click="handleDelete">确 定</el-button>
-  </span>
+      <el-button @click="userdialogVisible1 = false">取 消</el-button>
+      <el-button type="primary" @click="handleDelete">确 定</el-button>
+    </span>
   </el-dialog>
 </div>
