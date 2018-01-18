@@ -1,69 +1,46 @@
 <div>
-  <el-button type="text" @click="addarticle">新增</el-button>
-  <el-table :data="userarr" style="width: 100%">
-    <el-table-column label="修改时间">
-      <template slot-scope="scope">
-        <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{ scope.row.logintime |moment}}</span>
-      </template>
-    </el-table-column>
-    <el-table-column label="商品名称">
-      <template slot-scope="scope">
-        <p> {{ scope.row.title }}</p>
-      </template>
-    </el-table-column>
-    <el-table-column label="商品状态">
-      <template slot-scope="scope">
-        <p> {{ scope.row.state===1?'可用':'禁用' }}</p>
-      </template>
-    </el-table-column>
-    <el-table-column label="操作">
-      <template slot-scope="scope">
-        <el-button size="mini" @click="handleEdit(scope.row)">编辑
-        </el-button>
-        <el-button size="mini" type="danger" @click="modify(scope.row)">修改密码
-        </el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  <el-dialog :title="title" :visible.sync="userdialogVisible">
-    <el-form :model="userobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="商品名称" prop="title" :rules="[
-      { required: true, message: '商品名称不能为空'}
-    ]">
-        <el-input type="text" v-model="userobj.title" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="商品图片" prop="picture" :rules="[
-      { required: true, message: '商品图片不能为空'}
-    ]">
-        <m-update :base64.sync="userobj.picture" v-model="userobj.picture"></m-update>
-        <!--<el-input type="text" v-model="userobj.picture" auto-complete="off"></el-input>-->
-      </el-form-item>
-      <el-form-item label="商品详情" prop="state">
-        <vue-html5-editor :content="userobj.details" :height="500" @change="editor"></vue-html5-editor>
-      </el-form-item>
-      <el-form-item label="状态" prop="state">
-        <el-switch v-model="userobj.state" :active-value="1" :inactive-value="0">
-        </el-switch>
-      </el-form-item>
-    </el-form>
-    <span slot="footer" class="dialog-footer">
-      <el-button @click="userdialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="confirm">确 定</el-button>
-    </span>
-  </el-dialog>
-
-  <el-dialog :title="title" :visible.sync="userdialogVisible1">
-    <el-form :model="userobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="密码" prop="password" :rules="[
-      { required: true, message: '密码不能为空'}
-    ]">
-        <el-input type="password" v-model.number="userobj.password" auto-complete="off"></el-input>
-      </el-form-item>
-    </el-form>
-    <span slot="footer" class="dialog-footer">
-      <el-button @click="userdialogVisible1 = false">取 消</el-button>
-      <el-button type="primary" @click="handleDelete">确 定</el-button>
-    </span>
-  </el-dialog>
+  <el-button type="text"  @click="append">新增</el-button>
+      <el-row>
+          <el-col :span="8" :offset="8">
+              <el-input
+              placeholder="输入关键字进行搜索"
+              v-model="filterText">
+            </el-input>
+              <el-tree
+              :data="tree"
+              :props="defaultProps"
+              accordion
+              default-expand-all
+              ref="classificationtree"
+              :expand-on-click-node="false"
+              :filter-node-method="filterNode"
+              :render-content="renderContent">
+            </el-tree>
+          </el-col>
+        </el-row>
+        <el-dialog :title="title" :visible.sync="dialogVisible">
+            <el-form :model="treeobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">
+              <el-form-item label="节点名称" prop="label" :rules="[
+              { required: true, message: '节点名称不能为空'}
+            ]">
+                <el-input type="text" v-model="treeobj.label" auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="上级节点" prop="upperlevel">
+                  <el-select v-model="treeobj.upperlevel" placeholder="请选择" 
+                  :clearable="true">
+                      <el-option
+                        v-for="item in options"
+                        :key="item.AutoId"
+                        :label="item.label"
+                        :value="item.AutoId"
+                        >
+                      </el-option>
+                    </el-select>
+              </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="confirm">确 定</el-button>
+            </span>
+          </el-dialog>
 </div>

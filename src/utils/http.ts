@@ -28,8 +28,10 @@ function checkStatus(response) {
   // 如果http状态码正常，则直接返回数据
   let vm = this;
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
-    if (response.data.status === 1) {
+    if (response.data.status === 0) {
       return response.data.data;
+    }else if(response.data.status === 1) {
+      return response.data.msg;
     }
     return response.data;
     // 如果不需要除了data之外的数据，可以直接 return response.data

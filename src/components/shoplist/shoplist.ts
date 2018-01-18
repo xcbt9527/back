@@ -24,11 +24,9 @@ export default class article extends Vue {
   userdialogVisible1: boolean = false;
   userobj: any = {};
   editorOption: any = {};
-  @Getter('account') account;
   mounted() {
     // console.log(articlemodel);
     this.init();
-    console.log(this.account);
   }
 
   init() {

@@ -11,6 +11,7 @@ import htmltepl from "./classification.html";
 import src from '@/utils/http.ts';
 import api from "@/utils/api.ts";
 import { Getter } from 'vuex-class';
+import classificationmodel from "@/model/classification.ts";
 @Component({
   template: htmltepl,
   name: 'classification',
@@ -18,79 +19,132 @@ import { Getter } from 'vuex-class';
 })
 
 export default class article extends Vue {
-  userarr: Array<any> = [];  //用户列表
-  title: string = 'null';
-  userdialogVisible: boolean = false;
-  userdialogVisible1: boolean = false;
-  userobj: any = {};
-  editorOption: any = {};
-  @Getter('account') account;
+  title:string = '标题';
+  tree:classificationmodel[] = [];  //树结构
+  treeobj:classificationmodel = new classificationmodel();  //树结构对象
+  treeloading:boolean = false;  //loading
+  defaultProps:object = { //树结构编辑对象
+    children: 'children',
+    label: 'label'
+  };
+  dialogVisible:boolean = false;  //弹框
+  options:Array<any> = [];
+  filterText:string = null; //关键字搜索
   mounted() {
-    // console.log(articlemodel);
     this.init();
-    console.log(this.account);
   }
 
   init() {
+    this.treeloading = true;
     src.post(api.getAllclassification, null).then(res => {
       if (res) {
-        this.userarr = res;
+        this.treeloading = false;
+        this.tree = res;
       }
+    }).catch(e=>{
+      this.$message.error(e);
+      this.treeloading = false;
     })
   }
 
-  //编辑
-  handleEdit(row) {
-    this.userobj = row;
-    this.userdialogVisible = true;
+ 
+  /**
+   * 修改树节点
+   * @param h 
+   * @param param1 
+   */
+  renderContent(h, { node, data, store }) {
+    let vm = this;
+    return h(
+      'div',{attrs:{style:'width:100%;'}},[
+        h('span',{},node.label),
+        h('div',{attrs:{style:'float:right;'}},[
+        h('i',{attrs:{class:'el-icon-plus m-r-10'},on:{click:function(){
+          vm.append(data);
+        }}}),
+        h('i',{attrs:{class:'el-icon-edit m-r-10'},on:{click:function(){
+          vm.edit(node.parent.data,data)
+        }}}),
+        h('i',{attrs:{class:'el-icon-delete m-r-10'},on:{click:function(){
+          vm.remove(data)
+        }}})]
+      )
+      ]
+    );
+  }
+  /**
+   * 编辑
+   * @param parent 父节点
+   * @param data 自数据
+   */
+  edit(parent,data){
     this.title = '编辑';
-  };
-
-
-  //新增
-  addarticle() {
-    this.userdialogVisible = true;
+    this.options = [];
+    this.options.push(parent);
+    this.dialogVisible = true;
+    this.treeobj = data;
+  }
+  /**
+   * 新增
+   * @param data 自数据（可空）
+   */
+  append(data){
     this.title = '新增';
-    this.userobj = {
-      AutoId: 0,
-      details: '',
-      picture: '',
-      state: 1,
-      title: '',
-      editor: '12312312312312313',
-    };
+    this.options = [];
+    if(data){
+      this.options.push(data);
+  }else{
+    this.options.push(new classificationmodel());
   }
-
-  //更改状态
-  handleDelete() {
-
+    this.dialogVisible = true;
+    this.treeobj = new classificationmodel();
   }
-
-  //保存
+  /**
+   * 删除
+   * @param data 自数据
+   */
+  remove(data){
+    this.$confirm('是否删除？')
+          .then(_ => {
+            src.post(api.Delectclassification,data).then(res=>{
+                this.$message.success(res);
+                this.dialogVisible = false;
+                this.init();
+            }).catch(e=>{
+              this.$message.success(e);
+              this.dialogVisible = false;
+            });
+          })
+          .catch(_ => {});
+  }
+  /**
+   * 保存
+   */
   confirm() {
     (this.$refs['ValidateForm'] as any).validate((valid) => {
       if (valid) {
-        src.post(api.SaveRecordshop, this.userobj).then(res => {
-          this.userdialogVisible = false;
-          this.$message.success('保存成功');
+        if(!this.treeobj.upperlevel){
+          this.treeobj.upperlevel = 0;
+        }
+        src.post(api.Saveclassification, this.treeobj).then(res => {
+          this.dialogVisible = false;
+          this.$message.success(res);
           this.init();
         })
       }
     })
   }
-  editor(val) {
-    this.userobj.details = val;
+   /**
+   * 过滤节点
+   * @param value 
+   * @param data 
+   */ 
+  filterNode(value, data) {
+    if (!value) return true;
+    return data.label.indexOf(value) !== -1;
   }
-  update(e) {
-    let file = e.target.files[0];
-    let reader = new FileReader();
-    reader.onloadend = function () {
-      // 图片的 base64 格式, 可以直接当成 img 的 src 属性值
-      let dataURL = reader.result;
-      let img = new Image();
-      img.src = dataURL;
-      e.value = dataURL;
-    };
-    reader.readAsDataURL(file); // 读出 base64
+  @Watch('filterText')
+  filterTextchange(val){
+    (this.$refs.classificationtree as any).filter(val);
   }
 }
