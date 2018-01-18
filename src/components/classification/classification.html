@@ -4,16 +4,19 @@
           <el-col :span="8" :offset="8">
               <el-input
               placeholder="输入关键字进行搜索"
+              class="m-b-10"
               v-model="filterText">
             </el-input>
               <el-tree
               :data="tree"
               :props="defaultProps"
+              style="max-height:90vh;overflow-y:auto;"
               accordion
               default-expand-all
               ref="classificationtree"
               :expand-on-click-node="false"
               :filter-node-method="filterNode"
+              v-loading="treeloading"
               :render-content="renderContent">
             </el-tree>
           </el-col>
