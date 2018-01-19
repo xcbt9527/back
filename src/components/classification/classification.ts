@@ -19,21 +19,20 @@ import classificationmodel from "@/model/classification.ts";
 })
 
 export default class article extends Vue {
-  title:string = '标题';
-  tree:classificationmodel[] = [];  //树结构
-  treeobj:classificationmodel = new classificationmodel();  //树结构对象
-  treeloading:boolean = false;  //loading
-  defaultProps:object = { //树结构编辑对象
+  title: string = '标题';
+  tree: classificationmodel[] = [];  //树结构
+  treeobj: classificationmodel = new classificationmodel();  //树结构对象
+  treeloading: boolean = false;  //loading
+  defaultProps: object = { //树结构编辑对象
     children: 'children',
     label: 'label'
   };
-  dialogVisible:boolean = false;  //弹框
-  options:Array<any> = [];
-  filterText:string = null; //关键字搜索
+  dialogVisible: boolean = false;  //弹框
+  options: Array<any> = [];
+  filterText: string = null; //关键字搜索
   mounted() {
     this.init();
   }
-
   init() {
     this.treeloading = true;
     src.post(api.getAllclassification, null).then(res => {
@@ -41,13 +40,13 @@ export default class article extends Vue {
         this.treeloading = false;
         this.tree = res;
       }
-    }).catch(e=>{
+    }).catch(e => {
       this.$message.error(e);
       this.treeloading = false;
     })
   }
 
- 
+
   /**
    * 修改树节点
    * @param h 
@@ -56,19 +55,31 @@ export default class article extends Vue {
   renderContent(h, { node, data, store }) {
     let vm = this;
     return h(
-      'div',{attrs:{style:'width:100%;'}},[
-        h('span',{},node.label),
-        h('div',{attrs:{style:'float:right;'}},[
-        h('i',{attrs:{class:'el-icon-plus m-r-10'},on:{click:function(){
-          vm.append(data);
-        }}}),
-        h('i',{attrs:{class:'el-icon-edit m-r-10'},on:{click:function(){
-          vm.edit(node.parent.data,data)
-        }}}),
-        h('i',{attrs:{class:'el-icon-delete m-r-10'},on:{click:function(){
-          vm.remove(data)
-        }}})]
-      )
+      'div', { attrs: { style: 'width:100%;' } }, [
+        h('span', {}, node.label + '(' + data.Code + ')'),
+        h('div', { attrs: { style: 'float:right;' } }, [
+          h('i', {
+            attrs: { class: 'el-icon-plus m-r-10' }, on: {
+              click: function () {
+                vm.append(data);
+              }
+            }
+          }),
+          h('i', {
+            attrs: { class: 'el-icon-edit m-r-10' }, on: {
+              click: function () {
+                vm.edit(node.parent.data, data)
+              }
+            }
+          }),
+          h('i', {
+            attrs: { class: 'el-icon-delete m-r-10' }, on: {
+              click: function () {
+                vm.remove(data)
+              }
+            }
+          })]
+        )
       ]
     );
   }
@@ -77,7 +88,7 @@ export default class article extends Vue {
    * @param parent 父节点
    * @param data 自数据
    */
-  edit(parent,data){
+  edit(parent, data) {
     this.title = '编辑';
     this.options = [];
     this.options.push(parent);
@@ -88,14 +99,15 @@ export default class article extends Vue {
    * 新增
    * @param data 自数据（可空）
    */
-  append(data){
+  append(data) {
     this.title = '新增';
     this.options = [];
-    if(data){
+    if (data) {
       this.options.push(data);
-  }else{
-    this.options.push(new classificationmodel());
-  }
+      this.treeobj.upperlevel = data.AutoId;
+    } else {
+      this.options.push(new classificationmodel());
+    }
     this.dialogVisible = true;
     this.treeobj = new classificationmodel();
   }
@@ -103,19 +115,19 @@ export default class article extends Vue {
    * 删除
    * @param data 自数据
    */
-  remove(data){
+  remove(data) {
     this.$confirm('是否删除？')
-          .then(_ => {
-            src.post(api.Delectclassification,data).then(res=>{
-                this.$message.success(res);
-                this.dialogVisible = false;
-                this.init();
-            }).catch(e=>{
-              this.$message.success(e);
-              this.dialogVisible = false;
-            });
-          })
-          .catch(_ => {});
+      .then(_ => {
+        src.post(api.Delectclassification, data).then(res => {
+          this.$message.success(res);
+          this.dialogVisible = false;
+          this.init();
+        }).catch(e => {
+          this.$message.success(e);
+          this.dialogVisible = false;
+        });
+      })
+      .catch(_ => { });
   }
   /**
    * 保存
@@ -123,7 +135,7 @@ export default class article extends Vue {
   confirm() {
     (this.$refs['ValidateForm'] as any).validate((valid) => {
       if (valid) {
-        if(!this.treeobj.upperlevel){
+        if (!this.treeobj.upperlevel) {
           this.treeobj.upperlevel = 0;
         }
         src.post(api.Saveclassification, this.treeobj).then(res => {
@@ -134,17 +146,19 @@ export default class article extends Vue {
       }
     })
   }
-   /**
-   * 过滤节点
-   * @param value 
-   * @param data 
-   */ 
+  /**
+  * 过滤节点
+  * @param value 
+  * @param data 
+  */
   filterNode(value, data) {
     if (!value) return true;
     return data.label.indexOf(value) !== -1;
   }
+
+
   @Watch('filterText')
-  filterTextchange(val){
+  filterTextchange(val) {
     (this.$refs.classificationtree as any).filter(val);
   }
 }
