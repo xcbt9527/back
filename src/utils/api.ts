@@ -1,9 +1,11 @@
 /**
  * Created by baird on 17/11/15.
  */
-const user = "/api/user/";
-const shop = "api/shop/";
-const classification = "api/classification/";
+const api = "/api/";
+const user = api + "user/";
+const shop = api + "shop/";
+const menu = api + "menu/";
+const classification = api + "classification/";
 export default {
   //===========================用户===============================================//
   login: user + "login",  //登录
@@ -21,4 +23,10 @@ export default {
   getclassification: classification + 'getclassification',//修改分类
   Delectclassification: classification + 'Delectclassification',  //删除分类
   Saveclassification: classification + 'Saveclassification',  //保存分类
+  //===========================菜单栏================================================//
+  getAllmenu: menu + 'getAllmenu',  //获取所有分类
+  getmenu: menu + 'getmenu',//修改分类
+  Delectmenu: menu + 'Delectmenu',  //删除分类
+  Savemenu: menu + 'Savemenu',  //保存分类
+
 }

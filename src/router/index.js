@@ -17,6 +17,7 @@ let routes = [
       {path: '/sysuser', component: resolve => require(['../components/sys/user/user.ts'], resolve)},
       {path: '/shoplist', component: resolve => require(['../components/shoplist/shoplist.ts'], resolve)},
       {path: '/classification', component: resolve => require(['../components/classification/classification.ts'], resolve)},
+      {path: '/menulist', component: resolve => require(['../components/menu/menu.ts'], resolve)},
     ]
   }
 ]
