@@ -30,7 +30,7 @@ function checkStatus(response) {
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
     if (response.data.status === 0) {
       return response.data.data;
-    }else if(response.data.status === 1) {
+    } else if (response.data.status === 1) {
       return response.data.msg;
     }
     return response.data;
@@ -56,7 +56,7 @@ function checkCode(res) {
 }
 
 export default {
-  post (url, data) {
+  post(url, data) {
     return axios({
       method: 'post',
       // baseURL: 'http://127.0.0.1:5262',
@@ -71,9 +71,9 @@ export default {
       (response) => {
         return checkStatus(response)
       }
-    );
+      );
   },
-  get (url, params) {
+  get(url, params) {
     return axios({
       method: 'get',
       // baseURL: 'https://cnodejs.org/api/v1',
@@ -87,6 +87,6 @@ export default {
       (response) => {
         return checkStatus(response)
       }
-    );
+      );
   }
 }

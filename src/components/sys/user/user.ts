@@ -6,7 +6,7 @@
  */
 
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import { Component, Watch } from 'vue-property-decorator';
 import htmltepl from "./user.html";
 import src from '@/utils/http.ts';
 import api from "@/utils/api.ts";
@@ -23,7 +23,7 @@ export default class article extends Vue {
   userdialogVisible1: boolean = false;
   userobj: any = {};
   editorOption: any = {};
-
+  Roles: Array<any> = [];
   mounted() {
     // console.log(articlemodel);
     this.init();
@@ -44,7 +44,7 @@ export default class article extends Vue {
 
   //更改状态
   handleDelete() {
-    src.post(api.ModifyRecorduser, {password: this.userobj.password}).then(res => {
+    src.post(api.ModifyRecorduser, { password: this.userobj.password }).then(res => {
       this.$message.success('密码修改成功');
       this.userdialogVisible1 = false;
     })
@@ -60,9 +60,9 @@ export default class article extends Vue {
   addarticle() {
     this.userdialogVisible = true;
     this.title = '新增';
-    this.userobj = {
-      AutoId: 0
-    };
+    this.$nextTick(() => {
+      (this.$refs['ValidateForm'] as any).resetFields();
+    });
   }
 
   //保存

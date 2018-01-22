@@ -4,9 +4,7 @@
     <el-table :data="menu" style="width: 100%" v-loading="loading">
       <el-table-column type="index" width="50" label="编号">
       </el-table-column>
-      <el-table-column prop="label" label="菜单栏名称" width="180">
-      </el-table-column>
-      <el-table-column prop="link" label="菜单栏地址">
+      <el-table-column prop="label" label="权限名字" width="180">
       </el-table-column>
       <el-table-column prop="Uid" label="唯一id">
       </el-table-column>
@@ -35,16 +33,10 @@
   </div>
   <el-dialog :title="title" :visible.sync="dialogVisible">
     <el-form :model="menuobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="菜单名称" prop="label" :rules="[
-              { required: true, message: '菜单名称不能为空'}
+      <el-form-item label="权限名字" prop="label" :rules="[
+              { required: true, message: '权限名字不能为空'}
             ]">
         <el-input type="text" v-model="menuobj.label" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="菜单地址" prop="link">
-        <el-input type="text" v-model="menuobj.link" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="icon" prop="link">
-        <el-input type="text" v-model="menuobj.icon" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="key" prop="Uid" :rules="[
               { required: true, message: 'key唯一id不能为空'}
@@ -64,6 +56,12 @@
           </el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="权限" prop="upperlevel">
+          <el-select v-model="menuobj.upperlevel" placeholder="请选择" :clearable="true">
+            <el-option v-for="item in menu" :key="item.AutoId" :label="item.label" :value="item.AutoId" v-if="item.upperlevel===0">
+            </el-option>
+          </el-select>
+        </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="dialogVisible = false">取 消</el-button>

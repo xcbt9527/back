@@ -7,7 +7,7 @@
 
 import Vue from 'vue';
 import { Component, Watch } from 'vue-property-decorator';
-import htmltepl from "./menu.html";
+import htmltepl from "./roles.html";
 import src from '@/utils/http.ts';
 import api from "@/utils/api.ts";
 import { Getter } from 'vuex-class';

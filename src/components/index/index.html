@@ -12,10 +12,10 @@
   <el-container style="height: 88vh; border: 1px solid #eee">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <el-menu :default-openeds="showmenu"  :router="true">
-        <el-submenu :index="menu.index" v-for="menu in menu">
-          <template slot="title"><i class="el-icon-message"></i>{{menu.title}}</template>
+        <el-submenu :index="menu.label" v-for="(menu,index) in menu">
+          <template slot="title"><i class="el-icon-message"></i>{{menu.label}}</template>
           <el-menu-item-group>
-            <el-menu-item :index="children.path" v-for="children in menu.children">{{children.title}}</el-menu-item>
+            <el-menu-item :index="children.link" v-for="children in menu.children">{{children.label}}</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

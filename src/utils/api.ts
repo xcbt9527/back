@@ -6,7 +6,11 @@ const user = api + "user/";
 const shop = api + "shop/";
 const menu = api + "menu/";
 const classification = api + "classification/";
+const publiclib = api + "public/";
 export default {
+
+  //===========================公用===============================================//
+  getuid: publiclib + "getuid",  //获取key（唯一id）
   //===========================用户===============================================//
   login: user + "login",  //登录
   getAlluser: user + 'getAlluser',  //获取所有用户
@@ -20,13 +24,14 @@ export default {
   SaveRecordshop: shop + 'SaveRecord',  //保存信息
   //===========================分类================================================//
   getAllclassification: classification + 'getAllclassification',  //获取所有分类
-  getclassification: classification + 'getclassification',//修改分类
+  getclassification: classification + 'getclassification',//获取分类
   Delectclassification: classification + 'Delectclassification',  //删除分类
   Saveclassification: classification + 'Saveclassification',  //保存分类
   //===========================菜单栏================================================//
-  getAllmenu: menu + 'getAllmenu',  //获取所有分类
-  getmenu: menu + 'getmenu',//修改分类
-  Delectmenu: menu + 'Delectmenu',  //删除分类
-  Savemenu: menu + 'Savemenu',  //保存分类
+  getAllmenu: menu + 'getAllmenu',  //获取所有菜单
+  getmenu: menu + 'getmenu',//获取菜单
+  Delectmenu: menu + 'Delectmenu',  //删除分菜单
+  Savemenu: menu + 'Savemenu',  //保存菜单
+  getTreemenu: menu + 'getTreemenu', //获取树状菜单
 
 }

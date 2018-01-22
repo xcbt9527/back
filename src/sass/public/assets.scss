@@ -5,6 +5,10 @@
     float: left;
   }
 @for $i from 1 through 50{
+    // margin
+    .m-#{$i}{
+        margin:0px + $i;
+    }
     .m-l-#{$i}{
         margin-left:0px +$i;
     }
@@ -16,6 +20,10 @@
     }
     .m-b-#{$i}{
         margin-bottom:0px +$i;
+    }
+    //padding
+    .p-#{$i}{
+        padding:0px + $i;
     }
     .p-l-#{$i}{
         padding-left:0px +$i;

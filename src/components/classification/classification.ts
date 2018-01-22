@@ -109,7 +109,10 @@ export default class article extends Vue {
       this.options.push(new classificationmodel());
     }
     this.dialogVisible = true;
-    this.treeobj = new classificationmodel();
+    this.$nextTick(() => {
+      (this.$refs['ValidateForm'] as any).resetFields();
+      this.treeobj = new classificationmodel();
+    });
   }
   /**
    * 删除
