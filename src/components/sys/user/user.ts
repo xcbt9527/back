@@ -27,6 +27,7 @@ export default class article extends Vue {
   mounted() {
     // console.log(articlemodel);
     this.init();
+    this.getroles();
   }
 
   init() {
@@ -34,7 +35,12 @@ export default class article extends Vue {
       this.userarr = res;
     })
   }
-
+  getroles(){
+    src.post(api.getAllroles,null).then(res=>{
+      this.Roles = res;
+      console.log(this.Roles);
+    });
+  }
   //编辑
   handleEdit(row) {
     this.userobj = row;
@@ -68,6 +74,7 @@ export default class article extends Vue {
   //保存
   confirm() {
 
+    this.userobj.Roles = JSON.stringify(this.userobj.Roles.join(","));
     (this.$refs['ValidateForm'] as any).validate((valid) => {
       if (valid) {
         src.post(api.SaveRecorduser, this.userobj).then(res => {

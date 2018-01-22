@@ -36,8 +36,8 @@ export default {
   getTreemenu: menu + 'getTreemenu', //获取树状菜单
   //===========================权限控制================================================//
   getAllroles: roles + 'getAllroles',  //获取所有权限
-  getTreeroles: roles + 'getTreeroles',//获取权限
-  getroles: roles + 'getroles',  //删除权限
-  Delectroles: roles + 'Delectroles',  //保存权限
-  Saveroles: roles + 'Saveroles', //获取树状权限
+  getTreeroles: roles + 'getTreeroles',//获取树状权限
+  getroles: roles + 'getroles',  //获取单条
+  Delectroles: roles + 'Delectroles',  //删除
+  Saveroles: roles + 'Saveroles', //保存
 }

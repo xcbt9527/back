@@ -33,11 +33,16 @@
     ]">
         <el-input type="text" v-model.number="userobj.name" auto-complete="off"></el-input>
       </el-form-item>
-      <el-form-item label="角色权限" prop="Roles">
-        <el-select v-model="userobj.Roles" multiple placeholder="请选择权限">
-          <el-option v-for="item in Roles" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
+      <el-form-item label="角色权限">
+          <el-select v-model="userobj.Roles"  placeholder="请选择" multiple 
+          collapse-tags>
+              <el-option
+                v-for="item in Roles"
+                :key='item.AutoId'
+                :label='item.label'
+                :value="item.AutoId">
+              </el-option>
+            </el-select>
       </el-form-item>
       <el-form-item label="状态" prop="state">
         <el-switch v-model="userobj.state" :active-value="1" :inactive-value="0">

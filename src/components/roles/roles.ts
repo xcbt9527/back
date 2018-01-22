@@ -32,18 +32,13 @@ export default class article extends Vue {
   menuArray: Array<any> = [];  //树菜单栏结构
   mounted() {
     this.init();
+    this.getTreemenu();
   }
   init() {
     this.loading = true;
-    src.post(api.getTreemenu, null).then(res => {
-      this.menuArray = res;
-    }).catch(e => {
-      this.$message.error(e);
-    })
     src.post(api.getAllroles, null).then(res => {
       if (res) {
         this.loading = false;
-
         this.tableArray = res;
       }
     }).catch(e => {
@@ -51,7 +46,13 @@ export default class article extends Vue {
       this.loading = false;
     })
   }
-
+  getTreemenu(){
+  src.post(api.getTreemenu, null).then(res => {
+    this.menuArray = res;
+  }).catch(e => {
+    this.$message.error(e);
+  })
+}
 
   /**
    * 编辑
@@ -62,6 +63,9 @@ export default class article extends Vue {
     this.title = '编辑';
     this.dialogVisible = true;
     this.obj = data;
+    this.$nextTick(()=>{
+    (this.$refs.tree as any).setCheckedKeys(this.obj.menu_roles);
+    })
   }
   /**
    * 新增
@@ -104,6 +108,7 @@ export default class article extends Vue {
         }
         this.obj.menu_roles = null;
         let model = (this.$refs.tree as any).getCheckedKeys();
+         model = model.join(",");
         this.obj.menu_roles = JSON.stringify(model);
 
         src.post(api.Saveroles, this.obj).then(res => {
