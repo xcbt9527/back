@@ -11,7 +11,7 @@ import htmltepl from "./roles.html";
 import src from '@/utils/http.ts';
 import api from "@/utils/api.ts";
 import { Getter } from 'vuex-class';
-import menuclass from "@/model/menu.ts";
+import rolesmodel from "@/model/roles.ts";
 @Component({
   template: htmltepl,
   name: 'menulist',
@@ -20,8 +20,8 @@ import menuclass from "@/model/menu.ts";
 
 export default class article extends Vue {
   title: string = '标题';
-  menu: menuclass[] = [];  //树结构
-  menuobj: menuclass = new menuclass();  //树结构对象
+  tableArray: rolesmodel[] = [];  //树结构
+  obj: rolesmodel = new rolesmodel();  //树结构对象
   loading: boolean = false;  //loading
   defaultProps: object = { //树结构编辑对象
     children: 'children',
@@ -29,16 +29,22 @@ export default class article extends Vue {
   };
   dialogVisible: boolean = false;  //弹框
   filterText: string = null; //关键字搜索
+  menuArray: Array<any> = [];  //树菜单栏结构
   mounted() {
     this.init();
   }
   init() {
     this.loading = true;
-    src.post(api.getAllmenu, null).then(res => {
+    src.post(api.getTreemenu, null).then(res => {
+      this.menuArray = res;
+    }).catch(e => {
+      this.$message.error(e);
+    })
+    src.post(api.getAllroles, null).then(res => {
       if (res) {
         this.loading = false;
 
-        this.menu = res;
+        this.tableArray = res;
       }
     }).catch(e => {
       this.$message.error(e);
@@ -55,7 +61,7 @@ export default class article extends Vue {
   edit(data) {
     this.title = '编辑';
     this.dialogVisible = true;
-    this.menuobj = data;
+    this.obj = data;
   }
   /**
    * 新增
@@ -66,7 +72,7 @@ export default class article extends Vue {
     this.dialogVisible = true;
     this.$nextTick(() => {
       (this.$refs['ValidateForm'] as any).resetFields();
-      this.menuobj = new menuclass();
+      this.obj = new rolesmodel();
     });
   }
   /**
@@ -93,10 +99,14 @@ export default class article extends Vue {
   confirm() {
     (this.$refs['ValidateForm'] as any).validate((valid) => {
       if (valid) {
-        if (!this.menuobj.upperlevel) {
-          this.menuobj.upperlevel = 0;
+        if (!this.obj.upperlevel) {
+          this.obj.upperlevel = 0;
         }
-        src.post(api.Savemenu, this.menuobj).then(res => {
+        this.obj.menu_roles = null;
+        let model = (this.$refs.tree as any).getCheckedKeys();
+        this.obj.menu_roles = JSON.stringify(model);
+
+        src.post(api.Saveroles, this.obj).then(res => {
           this.dialogVisible = false;
           this.$message.success(res);
           this.init();
@@ -115,7 +125,7 @@ export default class article extends Vue {
   }
   getkey() {
     src.post(api.getuid, null).then(res => {
-      this.menuobj.Uid = res;
+      this.obj.Uid = res;
     })
   }
 
