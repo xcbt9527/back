@@ -26,7 +26,7 @@
       </template>
     </el-table-column>
   </el-table>
-  <el-dialog :title="title" :visible.sync="userdialogVisible">
+  <el-dialog :title="title" :visible.sync="userdialogVisible"  :before-close="handleClose">
     <el-form :model="userobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="商品名称" prop="title" :rules="[
       { required: true, message: '商品名称不能为空'}

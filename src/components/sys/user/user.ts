@@ -38,7 +38,6 @@ export default class article extends Vue {
   getroles() {
     src.post(api.getAllroles, null).then(res => {
       this.Roles = res;
-      console.log(this.Roles);
     });
   }
   //编辑
@@ -46,13 +45,18 @@ export default class article extends Vue {
     this.userobj = row;
     this.userdialogVisible = true;
     this.title = '编辑';
-    this.userobj.Roles.map(res => {
-      res = Number(res);
-      return Object.assign({}, res);
+    this.$nextTick(() => {
+      (this.$refs['ValidateForm'] as any).resetFields();
     })
-    console.log(row);
   };
-
+  handleClose(done) {
+    this.$confirm('关闭将不保存未保存数据')
+      .then(_ => {
+        this.init();
+        done();
+      })
+      .catch(_ => { });
+  }
   //更改状态
   handleDelete() {
     (this.$refs['ValidateForm1'] as any).validate(v => {

@@ -114,6 +114,15 @@ export default class article extends Vue {
       this.treeobj = new classificationmodel();
     });
   }
+
+  handleClose(done) {
+    this.$confirm('关闭将不保存未保存数据')
+      .then(_ => {
+        this.init();
+        done();
+      })
+      .catch(_ => { });
+  }
   /**
    * 删除
    * @param data 自数据

@@ -33,7 +33,7 @@
       </el-table-column>
     </el-table>
   </div>
-  <el-dialog :title="title" :visible.sync="dialogVisible">
+  <el-dialog :title="title" :visible.sync="dialogVisible"  :before-close="handleClose">
     <el-form :model="menuobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="菜单名称" prop="label" :rules="[
               { required: true, message: '菜单名称不能为空'}

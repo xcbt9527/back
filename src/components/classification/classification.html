@@ -21,7 +21,7 @@
             </el-tree>
           </el-col>
         </el-row>
-        <el-dialog :title="title" :visible.sync="dialogVisible">
+        <el-dialog :title="title" :visible.sync="dialogVisible"  :before-close="handleClose">
             <el-form :model="treeobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">
               <el-form-item label="节点名称" prop="label" :rules="[
               { required: true, message: '节点名称不能为空'}

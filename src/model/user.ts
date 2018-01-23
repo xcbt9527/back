@@ -24,15 +24,13 @@ export class Usermodel {
   /**
    *权限
    */
-  jurisdiction: number = null;
+  sys_usercol: number = null;
   /**
    * 最后登录时间
    */
   lastlogintime: string = null;
-  /*
-   * session ID
-   * */
-  session_store: string = null;
   token: string = null;
   sysuser: string = null;
+  phone: string = null;
+  position: string = null;
 }

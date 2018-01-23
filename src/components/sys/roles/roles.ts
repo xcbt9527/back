@@ -46,14 +46,22 @@ export default class article extends Vue {
       this.loading = false;
     })
   }
-  getTreemenu(){
-  src.post(api.getTreemenu, null).then(res => {
-    this.menuArray = res;
-  }).catch(e => {
-    this.$message.error(e);
-  })
-}
+  getTreemenu() {
+    src.post(api.getTreemenu, { showarrroles: 1 }).then(res => {
+      this.menuArray = res;
+    }).catch(e => {
+      this.$message.error(e);
+    })
+  }
 
+  handleClose(done) {
+    this.$confirm('关闭将不保存未保存数据')
+      .then(_ => {
+        this.init();
+        done();
+      })
+      .catch(_ => { });
+  }
   /**
    * 编辑
    * @param parent 父节点
@@ -63,8 +71,8 @@ export default class article extends Vue {
     this.title = '编辑';
     this.dialogVisible = true;
     this.obj = data;
-    this.$nextTick(()=>{
-    (this.$refs.tree as any).setCheckedKeys(this.obj.menu_roles);
+    this.$nextTick(() => {
+      (this.$refs.tree as any).setCheckedKeys(this.obj.menu_roles);
     })
   }
   /**
@@ -108,7 +116,7 @@ export default class article extends Vue {
         }
         this.obj.menu_roles = null;
         let model = (this.$refs.tree as any).getCheckedKeys();
-         model = model.join(",");
+        model = model.join(",");
         this.obj.menu_roles = JSON.stringify(model);
 
         src.post(api.Saveroles, this.obj).then(res => {

@@ -31,4 +31,11 @@ export default class index extends Vue {
       this.menu = res;
     })
   }
+  handleCommand(command) {
+    if (command === 'sginout') {
+      localStorage.clear();
+      sessionStorage.clear();
+      location.href = "login";
+    }
+  }
 }

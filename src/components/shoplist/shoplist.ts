@@ -37,6 +37,14 @@ export default class article extends Vue {
     })
   }
 
+  handleClose(done) {
+    this.$confirm('关闭将不保存未保存数据')
+      .then(_ => {
+        this.init();
+        done();
+      })
+      .catch(_ => { });
+  }
   //编辑
   handleEdit(row) {
     this.userobj = row;

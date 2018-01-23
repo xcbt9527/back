@@ -1,10 +1,10 @@
 <div>
   <el-header>
     <div style="line-height: 60px;">
-      <el-dropdown>
+      <el-dropdown @command="handleCommand">
         <span>{{account.name}}</span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>退出</el-dropdown-item>
+          <el-dropdown-item command="sginout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -13,9 +13,9 @@
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <el-menu :default-openeds="showmenu"  :router="true">
         <el-submenu :index="menu.label" v-for="(menu,index) in menu">
-          <template slot="title"><i class="el-icon-message"></i>{{menu.label}}</template>
+          <template slot="title"><i :class="menu.icon"></i>{{menu.label}}</template>
           <el-menu-item-group>
-            <el-menu-item :index="children.link" v-for="children in menu.children">{{children.label}}</el-menu-item>
+            <el-menu-item :index="children.link" v-for="children in menu.children"><i :class="children.icon"></i>{{children.label}}</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
