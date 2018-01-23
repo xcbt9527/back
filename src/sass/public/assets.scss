@@ -1,9 +1,11 @@
+// 漂浮
 .f-r{
     float: right;
   }
 .f-l{
     float: left;
   }
+//   padding
 @for $i from 1 through 50{
     // margin
     .m-#{$i}{
@@ -40,4 +42,10 @@
     .b-r-#{$i}{
         border-radius: 0px+$i;
     }
+}
+.fa{
+    font-size: 16px;
+    margin-right: 5px;
+    width: 24px;
+    vertical-align: middle;
 }

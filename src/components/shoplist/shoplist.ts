@@ -67,9 +67,14 @@ export default class article extends Vue {
     };
   }
 
-  //更改状态
-  handleDelete() {
-
+  //删除
+  remove(row) {
+    src.post(api.DeleteRecordshop, { AutoId: row.AutoId }).then(res => {
+      this.$message.success(res);
+      this.init();
+    }).catch(e => {
+      this.$message.success(e);
+    })
   }
 
   //保存
@@ -78,8 +83,10 @@ export default class article extends Vue {
       if (valid) {
         src.post(api.SaveRecordshop, this.userobj).then(res => {
           this.userdialogVisible = false;
-          this.$message.success('保存成功');
+          this.$message.success(res);
           this.init();
+        }).catch(e => {
+          this.$message.success(e);
         })
       }
     })
