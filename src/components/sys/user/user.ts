@@ -35,8 +35,8 @@ export default class article extends Vue {
       this.userarr = res;
     })
   }
-  getroles(){
-    src.post(api.getAllroles,null).then(res=>{
+  getroles() {
+    src.post(api.getAllroles, null).then(res => {
       this.Roles = res;
       console.log(this.Roles);
     });
@@ -46,19 +46,33 @@ export default class article extends Vue {
     this.userobj = row;
     this.userdialogVisible = true;
     this.title = '编辑';
+    this.userobj.Roles.map(res => {
+      res = Number(res);
+      return Object.assign({}, res);
+    })
+    console.log(row);
   };
 
   //更改状态
   handleDelete() {
-    src.post(api.ModifyRecorduser, { password: this.userobj.password }).then(res => {
-      this.$message.success('密码修改成功');
-      this.userdialogVisible1 = false;
-    })
+    (this.$refs['ValidateForm1'] as any).validate(v => {
+      if (this.userobj.password1 !== this.userobj.password) {
+        this.$message.success('两次密码不一致');
+        return;
+      }
+      src.post(api.ModifyRecorduser, { AutoId: this.userobj.AutoId, password: this.userobj.password }).then(res => {
+        this.$message.success('密码修改成功');
+        this.userdialogVisible1 = false;
+      })
+    });
   }
 
   modify(row) {
-    this.userobj = row;
     this.userdialogVisible1 = true;
+    this.$nextTick(() => {
+      (this.$refs['ValidateForm1'] as any).resetFields();
+    })
+    this.userobj = row;
     this.title = '修改密码';
   }
 
@@ -73,7 +87,8 @@ export default class article extends Vue {
 
   //保存
   confirm() {
-
+    this.userobj.Roles = Array.from(new Set(this.userobj.Roles));
+    console.log(this.userobj.Roles);
     this.userobj.Roles = JSON.stringify(this.userobj.Roles.join(","));
     (this.$refs['ValidateForm'] as any).validate((valid) => {
       if (valid) {
@@ -82,6 +97,29 @@ export default class article extends Vue {
           this.$message.success('保存成功');
           this.init();
         })
+      }
+    })
+  }
+  /**
+   * 删除
+   * @param row 
+   */
+  remove(row, state) {
+    if (state !== 1) {
+      this.$confirm('确认删除？一旦删除无法恢复！')
+        .then(_ => {
+          this.changestate(row.AutoId, state);
+        })
+        .catch(_ => { });
+    } else {
+      this.changestate(row.AutoId, state);
+    }
+  }
+  changestate(AutoId, state) {
+    src.post(api.DeleteRecorduser, { AutoId: AutoId, state: state }).then(res => {
+      if (res) {
+        this.$message.success(res);
+        this.init();
       }
     })
   }

@@ -14,14 +14,21 @@
     </el-table-column>
     <el-table-column label="状态">
       <template slot-scope="scope">
-        <p> {{ scope.row.state===1?'可用':'禁用' }}</p>
+        <p> {{ scope.row.state===1?'可用':scope.row.state===0?'禁用':'冻结' }}</p>
       </template>
     </el-table-column>
     <el-table-column label="操作">
       <template slot-scope="scope">
-        <el-button size="mini" @click="handleEdit(scope.row)">编辑
+        <el-button size="mini" type="primary" @click="handleEdit(scope.row)">编辑
         </el-button>
-        <el-button size="mini" type="danger" @click="modify(scope.row)">修改密码
+        <el-button size="mini" type="primary" @click="modify(scope.row)">修改密码
+        </el-button>
+        <el-button size="mini" type="danger" v-if="scope.row.state!==-1" @click="remove(scope.row,'-1')">冻 结
+        </el-button>
+        <el-button size="mini" type="danger" v-if="scope.row.state!==0" @click="remove(scope.row,'0')">删 除
+        </el-button>
+        <el-button size="mini" type="danger" v-if="scope.row.state!==1" @click="remove(scope.row,1)">
+          恢 复
         </el-button>
       </template>
     </el-table-column>
@@ -34,15 +41,10 @@
         <el-input type="text" v-model.number="userobj.name" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="角色权限">
-          <el-select v-model="userobj.Roles"  placeholder="请选择" multiple 
-          collapse-tags>
-              <el-option
-                v-for="item in Roles"
-                :key='item.AutoId'
-                :label='item.label'
-                :value="item.AutoId">
-              </el-option>
-            </el-select>
+        <el-select v-model="userobj.Roles" placeholder="请选择" multiple style="width:100%;">
+          <el-option v-for="item in Roles" :key='item.Uid' :label='item.label' :value="item.Uid">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="状态" prop="state">
         <el-switch v-model="userobj.state" :active-value="1" :inactive-value="0">
@@ -61,6 +63,11 @@
       { required: true, message: '密码不能为空'}
     ]">
         <el-input type="password" v-model.number="userobj.password" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="重复密码" prop="password1" :rules="[
+      { required: true, message: '重复密码不能为空'}
+    ]">
+        <el-input type="password" v-model.number="userobj.password1" auto-complete="off"></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">

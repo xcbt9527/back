@@ -69,7 +69,13 @@ export default {
       }
     }).then(
       (response) => {
-        return checkStatus(response)
+        let vm = this;
+        let model = checkStatus(response);
+        if (response.data.status === -1) {
+          console.log(1);
+          location.href = "login";
+        }
+        return model;
       }
       );
   },

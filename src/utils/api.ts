@@ -15,7 +15,7 @@ export default {
   //===========================用户===============================================//
   login: user + "login",  //登录
   getAlluser: user + 'getAlluser',  //获取所有用户
-  DeleteRecorduser: user + 'DeleteRecord',//修改状态
+  DeleteRecorduser: user + 'DeleteRecord',//删除
   SaveRecorduser: user + 'SaveRecord',  //保存信息
   ModifyRecorduser: user + 'ModifyRecord', //修改密码
 

@@ -20,19 +20,19 @@ let routes = [
       { path: '/shoplist', component: resolve => require(['../components/shoplist/shoplist.ts'], resolve) },
       { path: '/classification', component: resolve => require(['../components/classification/classification.ts'], resolve) },
       { path: '/menulist', component: resolve => require(['../components/menu/menu.ts'], resolve) },
-      { path: '/roles', component: resolve => require(['../components/roles/roles.ts'], resolve) },
+      { path: '/roles', component: resolve => require(['../components/sys/roles/roles.ts'], resolve) },
     ]
   }
 ]
 const router = new Router({
   history: true,
-  routes: routes
+  routes: routes,
+  mode:'history'
 });
 router.beforeEach((to, from, next) => {
   if (to.path !== '/login') {
     let key = sessionStorage.getItem('key');
     if (!key) {
-      console.log(key);
       next({
         path: '/login'
       })

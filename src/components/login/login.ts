@@ -29,7 +29,7 @@ export default class login extends Vue {
       if (valid) {
         src.post(api.login, this.numberValidateForm).then(res => {
           if (res.status !== 10000) {
-            this.$message.error(res.msg);
+            this.$message.error(res);
           } else {
             let model: Usermodel = res.data;
             sessionStorage.setItem('key', model.token);
