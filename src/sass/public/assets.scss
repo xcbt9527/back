@@ -1,3 +1,5 @@
+
+
 // 漂浮
 .f-r{
     float: right;
@@ -5,6 +7,16 @@
 .f-l{
     float: left;
   }
+//绝对漂浮
+.f-p-r{
+    position: relative;
+}
+.f-p-a{
+    position: absolute;
+}
+.f-p-f{
+    position: fixed;
+}
 //   padding
 @for $i from 1 through 50{
     // margin
@@ -43,6 +55,13 @@
         border-radius: 0px+$i;
     }
 }
+//新增
+.add{
+    right: 30px;
+    top: 10px;
+    z-index:99;
+}
+//图标
 .fa{
     font-size: 16px;
     margin-right: 5px;
