@@ -21,6 +21,7 @@ import classificationmodel from "@/model/classification.ts";
 export default class article extends Vue {
   title: string = '标题';
   tree: classificationmodel[] = [];  //树结构
+  treearr: classificationmodel[] = [];  //所有数据
   treeobj: classificationmodel = new classificationmodel();  //树结构对象
   treeloading: boolean = false;  //loading
   defaultProps: object = { //树结构编辑对象
@@ -38,7 +39,7 @@ export default class article extends Vue {
     src.post(api.getAllclassification, null).then(res => {
       if (res) {
         this.treeloading = false;
-        this.tree = res;
+        this.treearr = res;
       }
     }).catch(e => {
       this.$message.error(e);
@@ -46,43 +47,6 @@ export default class article extends Vue {
     })
   }
 
-
-  /**
-   * 修改树节点
-   * @param h 
-   * @param param1 
-   */
-  renderContent(h, { node, data, store }) {
-    let vm = this;
-    return h(
-      'div', { attrs: { style: 'width:100%;' } }, [
-        h('span', {}, node.label + '(' + data.Code + ')'),
-        h('div', { attrs: { style: 'float:right;' } }, [
-          h('i', {
-            attrs: { class: 'el-icon-plus m-r-10' }, on: {
-              click: function () {
-                vm.append(data);
-              }
-            }
-          }),
-          h('i', {
-            attrs: { class: 'el-icon-edit m-r-10' }, on: {
-              click: function () {
-                vm.edit(node.parent.data, data)
-              }
-            }
-          }),
-          h('i', {
-            attrs: { class: 'el-icon-delete m-r-10' }, on: {
-              click: function () {
-                vm.remove(data)
-              }
-            }
-          })]
-        )
-      ]
-    );
-  }
   /**
    * 编辑
    * @param parent 父节点
@@ -90,8 +54,6 @@ export default class article extends Vue {
    */
   edit(parent, data) {
     this.title = '编辑';
-    this.options = [];
-    this.options.push(parent);
     this.dialogVisible = true;
     this.treeobj = data;
   }
@@ -101,13 +63,6 @@ export default class article extends Vue {
    */
   append(data) {
     this.title = '新增';
-    this.options = [];
-    if (data) {
-      this.options.push(data);
-      this.treeobj.upperlevel = data.AutoId;
-    } else {
-      this.options.push(new classificationmodel());
-    }
     this.dialogVisible = true;
     this.$nextTick(() => {
       (this.$refs['ValidateForm'] as any).resetFields();
@@ -158,16 +113,6 @@ export default class article extends Vue {
       }
     })
   }
-  /**
-  * 过滤节点
-  * @param value 
-  * @param data 
-  */
-  filterNode(value, data) {
-    if (!value) return true;
-    return data.label.indexOf(value) !== -1;
-  }
-
 
   @Watch('filterText')
   filterTextchange(val) {

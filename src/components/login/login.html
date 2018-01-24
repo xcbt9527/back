@@ -1,7 +1,12 @@
 <div class="body">
   <m-canvas :width="2000" :height="2000" class="canvas" :point="50"></m-canvas>
   <div class="login">
-    <el-form :model="numberValidateForm" ref="numberValidateForm" label-width="100px" class="demo-ruleForm" style="padding:36px 103px;">
+    <div>
+      <center>
+        <h3>管理系统</h3>
+      </center>
+    </div>
+    <el-form :model="numberValidateForm" ref="numberValidateForm" label-width="100px" class="demo-ruleForm" style="padding:36px 103px;padding-left:20px;">
       <el-form-item label="登录名" prop="name" :rules="[
       { required: true, message: '登录名不能为空'}
     ]">

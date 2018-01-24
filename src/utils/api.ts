@@ -28,6 +28,7 @@ export default {
   getclassification: classification + 'getclassification',//获取分类
   Delectclassification: classification + 'Delectclassification',  //删除分类
   Saveclassification: classification + 'Saveclassification',  //保存分类
+  getTreeclassification: classification + 'getTreeclassification',  //获取树分类
   //===========================菜单栏================================================//
   getAllmenu: menu + 'getAllmenu',  //获取所有菜单
   getmenu: menu + 'getmenu',//获取菜单
