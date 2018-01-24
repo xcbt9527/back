@@ -7,33 +7,34 @@
 
 import Vue from 'vue';
 import { Component, Watch } from 'vue-property-decorator';
-import htmltepl from "./menu.html";
+import htmltepl from "./notepad.html";
 import src from '@/utils/http.ts';
 import api from "@/utils/api.ts";
 import { Getter } from 'vuex-class';
-import menuclass from "@/model/menu.ts";
+import notepadmodel from "@/model/notepad.ts";
 @Component({
   template: htmltepl,
-  name: 'menulist',
+  name: 'notepad',
   components: {}
 })
 
 export default class article extends Vue {
   title: string = '标题';
-  menu: menuclass[] = [];  //树结构
-  menuobj: menuclass = new menuclass();  //树结构对象
+  Array: notepadmodel[] = [];  //树结构
+  Arrayobj: notepadmodel = new notepadmodel();  //树结构对象
   loading: boolean = false;  //loading
   dialogVisible: boolean = false;  //弹框
+  filterText: string = null; //关键字搜索
   mounted() {
     this.init();
   }
   init() {
     this.loading = true;
-    src.post(api.getAllmenu, null).then(res => {
+    src.post(api.getAllnotepad, null).then(res => {
       if (res) {
         this.loading = false;
 
-        this.menu = res;
+        this.Array = res;
       }
     }).catch(e => {
       this.$message.error(e);
@@ -58,7 +59,7 @@ export default class article extends Vue {
   edit(data) {
     this.title = '编辑';
     this.dialogVisible = true;
-    this.menuobj = data;
+    this.Arrayobj = data;
   }
   /**
    * 新增
@@ -69,7 +70,7 @@ export default class article extends Vue {
     this.dialogVisible = true;
     this.$nextTick(() => {
       (this.$refs['ValidateForm'] as any).resetFields();
-      this.menuobj = new menuclass();
+      this.Arrayobj = new notepadmodel();
     });
   }
   /**
@@ -79,7 +80,7 @@ export default class article extends Vue {
   remove(data) {
     this.$confirm('是否删除？')
       .then(_ => {
-        src.post(api.Delectmenu, data).then(res => {
+        src.post(api.Delectnotepad, data).then(res => {
           this.$message.success(res);
           this.dialogVisible = false;
           this.init();
@@ -96,15 +97,16 @@ export default class article extends Vue {
   confirm() {
     (this.$refs['ValidateForm'] as any).validate((valid) => {
       if (valid) {
-        if (!this.menuobj.upperlevel) {
-          this.menuobj.upperlevel = 0;
-        }
-        src.post(api.Savemenu, this.menuobj).then(res => {
+        src.post(api.Savenotepad, this.Arrayobj).then(res => {
           this.dialogVisible = false;
           this.$message.success(res);
           this.init();
         })
       }
     })
+  }
+ 
+  editor(val) {
+    this.Arrayobj.content = val;
   }
 }

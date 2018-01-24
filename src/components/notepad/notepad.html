@@ -1,0 +1,58 @@
+<div class="f-p-r">
+    <el-button class="f-p-a add el-icon-plus" type="primary" size="mini" @click="append">新增</el-button>
+    <div class="m-10">
+      <el-table :data="Array" style="width: 100%" v-loading="loading">
+        <el-table-column type="index" width="50" label="编号">
+        </el-table-column>
+        <el-table-column prop="label" label="提醒事项" width="180">
+        </el-table-column>
+        <el-table-column prop="remindingtime" label="提醒时间">
+          <template slot-scope="scope">
+              {{scope.row.remindingtime|moment("YYYY-MM-DD hh:ss")}}
+              </template>
+        </el-table-column>
+        <el-table-column prop="status" label="状态">
+                <template slot-scope="scope">
+                        {{scope.row.status}}
+                </template>
+        </el-table-column>
+        <el-table-column fixed="right" label="操作" width="200">
+          <template slot-scope="scope">
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click.native.prevent="edit(scope.row)">
+              编 辑
+            </el-button>
+            <el-button type="primary" size="mini" icon="el-icon-delete" @click.native.prevent="remove(scope.row)">
+              删 除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+    <el-dialog :title="title" :visible.sync="dialogVisible" :before-close="handleClose">
+      <el-form :model="Arrayobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="提醒事项" prop="label" :rules="[
+                { required: true, message: '提醒事项不能为空'}
+              ]">
+          <el-input type="text" v-model="Arrayobj.label" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="提醒内容" prop="content" :rules="[
+           { required: true, message: '提醒内容不能为空'}
+           ]">
+             <vue-html5-editor :content="Arrayobj.content" :height="500" @change="editor"></vue-html5-editor>
+        </el-form-item>
+        <el-form-item label="提醒时间" prop="remindingtime" :rules="[
+        { required: true, message: '提醒时间不能为空'}
+        ]">
+        <el-date-picker
+             v-model="Arrayobj.remindingtime"
+             type="date" style="width:100%;"
+             placeholder="选择提醒时间">
+         </el-date-picker>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirm">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>

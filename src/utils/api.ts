@@ -8,6 +8,7 @@ const menu = api + "menu/";
 const classification = api + "classification/";
 const publiclib = api + "public/";
 const roles = api + "roles/";
+const notepad = api + "notepad/";
 export default {
 
   //===========================公用===============================================//
@@ -41,4 +42,11 @@ export default {
   getroles: roles + 'getroles',  //获取单条
   Delectroles: roles + 'Delectroles',  //删除
   Saveroles: roles + 'Saveroles', //保存
+
+  //===========================记事本================================================//
+
+  getAllnotepad: notepad + 'getAllnotepad',  //获取所有信息
+  getnotepad: notepad + 'getnotepad',  //获取单条
+  Delectnotepad: notepad + 'Delectnotepad',  //删除
+  Savenotepad: notepad + 'Savenotepad', //保存
 }

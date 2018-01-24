@@ -39,7 +39,7 @@
         <m-update :base64.sync="userobj.picture" v-model="userobj.picture"></m-update>
         <!--<el-input type="text" v-model="userobj.picture" auto-complete="off"></el-input>-->
       </el-form-item>
-      <el-form-item label="商品详情" prop="state">
+      <el-form-item label="商品详情" prop="details">
         <vue-html5-editor :content="userobj.details" :height="500" @change="editor"></vue-html5-editor>
       </el-form-item>
     </el-form>
