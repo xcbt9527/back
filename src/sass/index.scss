@@ -1,0 +1,18 @@
+
+
+        //为后面做的换主题做铺垫
+@charset "UTF-8";
+/* 改变主题色变量 */
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '../node_modules/element-ui/lib/theme-chalk/fonts';
+@import "../node_modules/element-ui/packages/theme-chalk/src/index";
+// 主题颜色
+$color:#dedede;
+$--color-primary:$color;
+
+@import "./public/lib/assets",  //公用样式
+        "./public/lib/theme",   //主题样式
+        "./public/login",        //登录
+        "./public/canvas"       //canvas画布
+        ;      

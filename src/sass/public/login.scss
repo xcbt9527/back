@@ -1,11 +1,34 @@
+$rgba:rgba(0,0,0,0.5);
+.body{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background: url("/src/sass/img/bg.jpg") no-repeat;
+  background-size: 100%;
+}
 .login {
   width: 40%;
-  margin: 10% auto;
+  height:240px;
+  margin: 15% auto;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   position: fixed;
+  background: rgba;
+  border-radius: 7px;
+  label{
+    color: #fff;
+  }
+  input:-webkit-autofill {
+    background-color: rgba;
+    background-image: none;
+    color: #fff;
+    }
+    input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px rgba(0,0,0,0.5) inset;}
 }
 .center{
   text-align: center;

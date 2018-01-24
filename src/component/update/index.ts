@@ -1,12 +1,6 @@
 /**
  * Created by baird on 18/1/15.
  */
-/**
- * Created by momo on 2018/1/4.
- */
-/**
- * Created by momo on 2017/11/13.
- */
 
 import Vue from 'vue';
 import { Component, Watch, Prop } from 'vue-property-decorator';
@@ -25,7 +19,6 @@ export default class updatets extends Vue {
   }
 
   updateimg(e) {
-    console.log(e);
     let vm = this;
     let file = e.target.files[0];
     let reader = new FileReader();
