@@ -6,11 +6,11 @@
  */
 
 import Vue from 'vue';
-import { Component, Watch } from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 import htmltepl from "./menu.html";
 import src from '@/utils/http.ts';
 import api from "@/utils/api.ts";
-import { Getter } from 'vuex-class';
+import {Getter} from 'vuex-class';
 import menuclass from "@/model/menu.ts";
 @Component({
   template: htmltepl,
@@ -27,6 +27,7 @@ export default class article extends Vue {
   mounted() {
     this.init();
   }
+
   init() {
     this.loading = true;
     src.post(api.getAllmenu, null).then(res => {
@@ -48,8 +49,10 @@ export default class article extends Vue {
         this.init();
         done();
       })
-      .catch(_ => { });
+      .catch(_ => {
+      });
   }
+
   /**
    * 编辑
    * @param parent 父节点
@@ -60,6 +63,7 @@ export default class article extends Vue {
     this.dialogVisible = true;
     this.menuobj = data;
   }
+
   /**
    * 新增
    * @param data 自数据（可空）
@@ -72,6 +76,7 @@ export default class article extends Vue {
       this.menuobj = new menuclass();
     });
   }
+
   /**
    * 删除
    * @param data 自数据
@@ -88,8 +93,10 @@ export default class article extends Vue {
           this.dialogVisible = false;
         });
       })
-      .catch(_ => { });
+      .catch(_ => {
+      });
   }
+
   /**
    * 保存
    */
@@ -105,6 +112,12 @@ export default class article extends Vue {
           this.init();
         })
       }
+    })
+  }
+
+  getkey() {
+    src.post(api.getuid, null).then(res => {
+      this.menuobj.Uid = res;
     })
   }
 }

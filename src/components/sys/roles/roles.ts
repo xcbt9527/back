@@ -127,23 +127,10 @@ export default class article extends Vue {
       }
     })
   }
-  /**
-  * 过滤节点
-  * @param value
-  * @param data
-  */
-  filterNode(value, data) {
-    if (!value) return true;
-    return data.label.indexOf(value) !== -1;
-  }
   getkey() {
     src.post(api.getuid, null).then(res => {
       this.obj.Uid = res;
     })
   }
 
-  @Watch('filterText')
-  filterTextchange(val) {
-    (this.$refs.classificationtree as any).filter(val);
-  }
 }
