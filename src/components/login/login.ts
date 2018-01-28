@@ -8,7 +8,7 @@ import htmltepl from "./login.html";
 import src from '@/utils/http.ts';
 import api from "@/utils/api.ts";
 import {Usermodel} from "../../model/user";
-import {mapMutations} from 'vuex';
+import {State, Action, Mutation} from 'vuex-class';
 @Component({
   template: htmltepl,
   name: 'login',
@@ -22,6 +22,9 @@ export default class login extends Vue {
   numberValidateForm: Object = {
     name: null,
     password: null
+  }
+
+  mounted() {
   }
 
   submitForm(formName) {

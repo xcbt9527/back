@@ -3,8 +3,9 @@
  */
 'use strict'
 
-import axios from 'axios'
-import qs from 'qs'
+import axios from 'axios';
+import qs from 'qs';
+import store from "../store/index";
 
 axios.interceptors.request.use(config => {
   // loading

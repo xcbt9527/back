@@ -28,7 +28,6 @@ export default class threeclass extends Vue {
 
     const geometry: any = new THREE.BoxGeometry(1, 1, 1);
     const material: any = new THREE.MeshBasicMaterial({color: 0x00ff00});
-    material.map()
     const cube: any = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
