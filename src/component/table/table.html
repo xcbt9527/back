@@ -1,7 +1,10 @@
 <div class="f-p-r"> 
     <el-button class="f-p-a add el-icon-plus" type="primary" size="mini" @click="add">新增</el-button>
-  <el-table :data="userarr" style="width: 100%">
-      <el-table-column type="index" label="编号" width="180">
+  <el-table :data="userarr" style="width: 100%"  v-loading="loading">
+      <el-table-column label="编号" width="180">
+        <template slot-scope="scope">
+         <span class="p-l-10"> {{pagesize *(currentPage -1) + scope.$index+1}}</span>
+        </template>
         </el-table-column>
     <slot></slot>
   </el-table>
@@ -10,7 +13,7 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="currentPage"
-      :page-sizes="[25,100,100, 200, 300, 400]"
+      :page-sizes="pagesizes"
       :page-size="pagesize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">

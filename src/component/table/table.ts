@@ -21,13 +21,19 @@ export default class updatets extends Vue {
 
     @Prop({ default: [] }) value: Array<any>;   //v-model的值
     currentPage:number = 1;
-    pagesize:number = 25;
+    pagesize:number = 10;
+    loading:boolean = false;
+    pagesizes:Array<number> = [10,20,50, 100, 150];
     get total(){
         return this.value.length;
     }
     get userarr(){
-        console.log(this.value.slice(this.pagesize*(this.currentPage -1),this.pagesize*this.currentPage))
-        return this.value.slice(this.pagesize*(this.currentPage -1),this.pagesize*this.currentPage);
+        this.loading = true;
+        let arr = this.value.slice(this.pagesize*(this.currentPage -1),this.pagesize*this.currentPage);
+        setTimeout(()=>{
+            this.loading = false;
+        },1000)
+        return arr;
     }
     mounted() {
         this.init();
@@ -43,13 +49,13 @@ export default class updatets extends Vue {
      * @param row 
      */
     handleSizeChange(row){
-        console.log(row);
+        this.pagesize = row;
     }
     /**
      * 获取分页
      * @param row 
      */
     handleCurrentChange(row){
-        console.log(row);
+        this.currentPage = row;
     }
 }

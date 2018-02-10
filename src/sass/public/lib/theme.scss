@@ -7,3 +7,6 @@
 .bd-color{
     border-color: $color;
 }
+.el-dropdown{
+    color: lighten($color,100%);    //高亮
+}

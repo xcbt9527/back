@@ -1,8 +1,5 @@
 <div class="f-p-r">
-  <el-button class="f-p-a add el-icon-plus" type="primary" size="mini" @click="append">新增</el-button>
-  <el-table :data="treearr" style="width: 100%" v-loading="treeloading">
-    <el-table-column type="index" width="50" label="编号">
-    </el-table-column>
+      <m-table v-model="treearr" @add="append">
     <el-table-column prop="label" label="分类名称" width="180">
     </el-table-column>
     <el-table-column prop="Code" label="分类编号">
@@ -28,7 +25,7 @@
         </el-button>
       </template>
     </el-table-column>
-  </el-table>
+  </m-table>
   <el-dialog :title="title" :visible.sync="dialogVisible" :before-close="handleClose">
     <el-form :model="treeobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="节点名称" prop="label" :rules="[
