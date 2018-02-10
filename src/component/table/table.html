@@ -1,3 +1,19 @@
-<div class="starry-sky">
-        <canvas ref="canvas" :width="width" :height="height"></canvas>
-      </div>
+<div class="f-p-r"> 
+    <el-button class="f-p-a add el-icon-plus" type="primary" size="mini" @click="add">新增</el-button>
+  <el-table :data="userarr" style="width: 100%">
+      <el-table-column type="index" label="编号" width="180">
+        </el-table-column>
+    <slot></slot>
+  </el-table>
+  <div class="m-t-10 f-r">
+      <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-sizes="[25,100,100, 200, 300, 400]"
+      :page-size="pagesize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
+  </div>
+</div>
