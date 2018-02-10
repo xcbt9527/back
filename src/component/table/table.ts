@@ -73,5 +73,5 @@ export default class updatets extends Vue {
 
 export class pagemodel {
     currentPage:number=1;
-    pagesize:number = 10;
+    pagesize:number = 25;
 }

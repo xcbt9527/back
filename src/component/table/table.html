@@ -1,26 +1,28 @@
+<div>
 <div class="f-p-r"> 
     <el-button class="f-p-a add el-icon-plus" type="primary" size="mini" @click="add">新增</el-button>
   <el-table :data="userarr" style="width: 100%"  v-loading="loading">
       <el-table-column label="编号" width="180">
         <template slot-scope="scope">
-         <span class="p-l-10"> {{pagesize *(currentPage -1) + scope.$index+1}}</span>
+         <span class="p-l-10"> {{page.pagesize *(page.currentPage -1) + scope.$index+1}}</span>
         </template>
         </el-table-column>
     <slot></slot>
   </el-table>
   <div class="m-t-10" style="min-height:40px;">
-    <div style="position:fixed;bottom:0;right:0;width:86.5%;z-index:99;" class="bg-color">
-      <el-pagination
-      class="f-r"
-      background
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage"
-      :page-sizes="pagesizes"
-      :page-size="pagesize"
-      layout="prev, pager, next,sizes,total"
-      :total="total">
-    </el-pagination>
   </div>
-  </div>
+</div>
+<div style="position:absolute;bottom:0;right:0;z-index:99;" class="right-box-calc">
+    <el-pagination
+    class="f-r"
+    background
+    @size-change="handleSizeChange"
+    @current-change="handleCurrentChange"
+    :current-page="page.currentPage"
+    :page-sizes="pagesizes"
+    :page-size="page.pagesize"
+    layout="prev, pager, next,sizes,total"
+    :total="total">
+  </el-pagination>
+</div>
 </div>
