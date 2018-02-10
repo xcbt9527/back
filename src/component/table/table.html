@@ -12,12 +12,13 @@
     <div style="position:fixed;bottom:0;right:0;width:86.5%;z-index:99;" class="bg-color">
       <el-pagination
       class="f-r"
+      background
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="currentPage"
       :page-sizes="pagesizes"
       :page-size="pagesize"
-      layout="total, sizes, prev, pager, next, jumper"
+      layout="prev, pager, next,sizes,total"
       :total="total">
     </el-pagination>
   </div>

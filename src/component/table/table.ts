@@ -20,19 +20,21 @@ import htmltepl from "./table.html";
 export default class updatets extends Vue {
 
     @Prop({ default: [] }) value: Array<any>;   //v-model的值
-    currentPage:number = 1;
-    pagesize:number = 10;
+    @Prop({ default: false }) isbackpage: boolean;   //是否后台分页
+    page:pagemodel = new pagemodel();
     loading:boolean = false;
-    pagesizes:Array<number> = [10,20,50, 100, 150];
+    pagesizes:Array<number> = [25,50,100, 150, 200];
     get total(){
         return this.value.length;
     }
     get userarr(){
+        let arr = this.value.slice(this.page.pagesize*(this.page.currentPage -1),this.page.pagesize*this.page.currentPage);
+        if(this.isbackpage===false){
         this.loading = true;
-        let arr = this.value.slice(this.pagesize*(this.currentPage -1),this.pagesize*this.currentPage);
         setTimeout(()=>{
             this.loading = false;
         },1000)
+    }
         return arr;
     }
     mounted() {
@@ -49,13 +51,27 @@ export default class updatets extends Vue {
      * @param row 
      */
     handleSizeChange(row){
-        this.pagesize = row;
+        if(this.isbackpage){
+            this.$emit('handleSizeChange',this.page);
+        }else{
+            
+        this.page.pagesize = row;
+        }
     }
     /**
      * 获取分页
      * @param row 
      */
     handleCurrentChange(row){
-        this.currentPage = row;
+        if(this.isbackpage){
+            this.$emit('handleSizeChange',this.page);
+        }else{
+        this.page.currentPage = row;
+        }
     }
+}
+
+export class pagemodel {
+    currentPage:number=1;
+    pagesize:number = 10;
 }
