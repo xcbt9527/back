@@ -10,3 +10,6 @@
 .el-dropdown{
     color: lighten($color,100%);    //高亮
 }
+.el-pagination__total,.el-pagination__jump{
+    color: lighten($color,100%);    //高亮
+}

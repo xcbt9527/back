@@ -8,8 +8,10 @@
         </el-table-column>
     <slot></slot>
   </el-table>
-  <div class="m-t-10 f-r">
+  <div class="m-t-10" style="min-height:40px;">
+    <div style="position:fixed;bottom:0;right:0;width:86.5%;z-index:99;" class="bg-color">
       <el-pagination
+      class="f-r"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="currentPage"
@@ -18,5 +20,6 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
+  </div>
   </div>
 </div>
