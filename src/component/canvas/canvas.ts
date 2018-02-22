@@ -9,7 +9,7 @@
  */
 
 import Vue from 'vue';
-import {Component, Watch, Prop} from 'vue-property-decorator';
+import { Component, Watch, Prop } from 'vue-property-decorator';
 import htmltepl from "./canvas.html";
 @Component({
   template: htmltepl,
@@ -24,18 +24,17 @@ export default class updatets extends Vue {
   context: any = null;  //canvasDomd的执行上下文
   circleArr: Array<any> = [];      //圆点数组
   timer: any = null;    //定时器对象
-  @Prop({default: 500}) width: number;   //线颜色
-  @Prop({default: 500}) height: number;   //星星颜色
-  @Prop({default: 25}) point: Number; //生成的星星（点）的个数
-  @Prop({default: 'rgba(45,140,210,0.2)'}) lineColor: string;   //线颜色
-  @Prop({default: 'rgba(45,140,210,0.1)'}) roundColor: string;   //星星颜色
+  @Prop({ default: 500 }) width: number;   //线颜色
+  @Prop({ default: 500 }) height: number;   //星星颜色
+  @Prop({ default: 25 }) point: Number; //生成的星星（点）的个数
+  @Prop({ default: 'rgba(45,140,210,0.2)' }) lineColor: string;   //线颜色
+  @Prop({ default: 'rgba(45,140,210,0.1)' }) roundColor: string;   //星星颜色
   mounted() {
     this.init();
     // 初始化
     this.createCircleArr()       // 设置星星数组
     this.draw() // 首屏绘制
     this.cycleDraw() // 循环绘制
-    console.log(this.context);
   }
 
   beforeDestory() {
@@ -74,7 +73,11 @@ export default class updatets extends Vue {
   rangeRadom(max, min) {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
-
+  drawStar(context, r, R, width, height) {
+    context.beginPath();
+    let opacity = Math.random();
+    context.starStyle = `rgba(255,255,255,${opacity})`;
+  }
   /**
    * 绘制原点
    */
@@ -98,7 +101,7 @@ export default class updatets extends Vue {
    */
   drawLine(context, beginX, beginY, closeX, closeY, opacity) {
     context.beginPath()
-    context.strokeStyle = `rgba(255, 255, 255, ${opacity})`
+    context.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
     context.moveTo(beginX, beginY)
     context.lineTo(closeX, closeY)
     context.closePath()
