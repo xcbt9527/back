@@ -30,7 +30,6 @@ export default class filmvip extends Vue {
       if (valid) {
         this.showflimvip = true;
         (this.$refs['iframe'] as any).src = this.patUrl[this.view.line] + this.view.website;
-        console.log((this.$refs['iframe'] as any).src);
       } else {
         return false;
       }
