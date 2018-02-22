@@ -13,6 +13,8 @@
     "target": "es5",
     "moduleResolution": "node",
     "isolatedModules": true,
+    // 启用 vuex-class 需要开启此选项
+    "strictFunctionTypes": false,
     "lib": [
       "dom",
       "es6"

@@ -7,3 +7,14 @@
 .bd-color{
     border-color: $color;
 }
+.el-dropdown{
+    color: lighten($color,100%);    //高亮
+}
+.el-pagination__total,.el-pagination__jump{
+    color: lighten($color,100%);    //高亮
+}
+
+.right-box-calc{
+    width: 86.5%;
+    background: $color;
+}

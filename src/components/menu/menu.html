@@ -1,9 +1,6 @@
-<div class="f-p-r">
-  <el-button class="f-p-a add el-icon-plus" type="primary" size="mini" @click="append">新增</el-button>
+<div>
   <div class="m-10">
-    <el-table :data="menu" style="width: 100%" v-loading="loading">
-      <el-table-column type="index" width="50" label="编号">
-      </el-table-column>
+      <m-table v-model="menu" @add="append">
       <el-table-column prop="label" label="菜单栏名称" width="180">
       </el-table-column>
       <el-table-column prop="link" label="菜单栏地址">
@@ -31,7 +28,7 @@
           </el-button>
         </template>
       </el-table-column>
-    </el-table>
+    </m-table>
   </div>
   <el-dialog :title="title" :visible.sync="dialogVisible" :before-close="handleClose">
     <el-form :model="menuobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">

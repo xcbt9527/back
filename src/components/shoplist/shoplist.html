@@ -1,6 +1,5 @@
-<div class="f-p-r">
-  <el-button class="f-p-a add el-icon-plus" type="primary" size="mini" @click="addarticle">新增</el-button>
-  <el-table :data="userarr" style="width: 100%">
+<div>
+      <m-table v-model="userarr" @add="addarticle">
     <el-table-column label="修改时间">
       <template slot-scope="scope">
         <i class="el-icon-time"></i>
@@ -25,7 +24,7 @@
         </el-button>
       </template>
     </el-table-column>
-  </el-table>
+  </m-table>
   <el-dialog :title="title" :visible.sync="userdialogVisible"  :before-close="handleClose">
     <el-form :model="userobj" ref="ValidateForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="商品名称" prop="title" :rules="[
