@@ -23,6 +23,7 @@ let routes = [
       { path: '/roles', component: resolve => require(['../components/sys/roles/roles.ts'], resolve) },
       { path: '/notepad', component: resolve => require(['../components/notepad/notepad.ts'], resolve) },
       { path: '/three', component: resolve => require(['../view/three/three.ts'], resolve) },
+      { path: '/filmvip', component: resolve => require(['../view/filmvip/filmvip.ts'], resolve) },
     ]
   }
 ]

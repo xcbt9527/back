@@ -46,7 +46,6 @@ export default class threeclass extends Vue {
      * 多维数据集  顶点，填充面对象
      */
     const geometry: any = new THREE.BoxGeometry(1, 1, 1);
-<<<<<<< HEAD
     /**
      * 给对象添加颜色
      */
@@ -54,9 +53,6 @@ export default class threeclass extends Vue {
     /**
      * 需要的第三件事是一个Mesh。网格是一个对象，它需要一个几何体，并将一个材质应用到它，然后我们可以将其插入到我们的场景中，并自由移动。
      */
-=======
-    const material: any = new THREE.MeshBasicMaterial({color: 0x00ff00});
->>>>>>> 7f92d37cf6f3f8f9f6f24fbd39a3629c95061a14
     const cube: any = new THREE.Mesh(geometry, material);
     /**
      * 把网格对象添加入场景
@@ -131,7 +127,7 @@ export default class threeclass extends Vue {
     let line:any = new THREE.Line(geometry, material);
     scene.add(line);
     // renderer.render(scene, camera); //添加网格和相机
-    
+
     /**
      * 动画循环
      */

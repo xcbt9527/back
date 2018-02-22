@@ -1,0 +1,21 @@
+<div>
+  <center><h3>vip电影解析播放器</h3></center>
+  <el-form :model="view" ref="dynamicValidateForm" class="fimvip">
+    <el-form-item
+      :key="view.website"
+      :rules="{
+      required: true, message: '网址不能为空', trigger: 'blur'
+    }"
+    >
+      <el-input v-model="view.website" placeholder="请输入需要解析的网址" style="width: 70%"></el-input>
+      <el-select v-model="view.line" placeholder="请选择线路" style="width: 10%">
+        <el-option :label="'线路'+(index)" :value="index-1" v-for="index in patUrl.length"></el-option>
+      </el-select>
+      <el-button @click.prevent="analysis">解析</el-button>
+    </el-form-item>
+  </el-form>
+  <div v-show="showflimvip" class="p-20">
+    <iframe src="" scrolling="no" frameborder="1" width="100%" height="700" ref="iframe"
+            style="z-index:888;margin:-1px 0 0 -2px;"></iframe>
+  </div>
+</div>
