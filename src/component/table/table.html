@@ -1,7 +1,8 @@
-<div>
+<div class="f-p-r">
 <div class="f-p-r"> 
     <el-button class="f-p-a add el-icon-plus" type="primary" size="mini" @click="add">新增</el-button>
   <el-table :data="userarr" style="width: 100%"  v-loading="loading">
+      <slot name="expand"></slot>
       <el-table-column label="编号" width="180">
         <template slot-scope="scope">
          <span class="p-l-10"> {{page.pagesize *(page.currentPage -1) + scope.$index+1}}</span>
@@ -12,7 +13,7 @@
   <div class="m-t-10" style="min-height:40px;">
   </div>
 </div>
-<div style="position:absolute;bottom:0;right:0;z-index:99;" class="right-box-calc">
+<div style="position:absolute;bottom:0;right:0;z-index:99;width:100%;" class="right-box-calc">
     <el-pagination
     class="f-r"
     background

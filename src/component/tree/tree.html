@@ -1,0 +1,26 @@
+<div>
+  <m-table v-model="Arr" @add="append">
+    <template slot="expand">
+      <el-table-column type="expand">
+        <template slot-scope="props" v-if="props.row[children]">
+          <template>
+            <m-tree v-model="props.row[children]" :children="children" @btnclick="btn" :showarr="showarr"></m-tree>
+          </template>
+        </template>
+      </el-table-column>
+    </template>
+    <el-table-column :prop="item.value" :label="item.text" v-for="item in showarr">
+    </el-table-column>
+    <slot></slot>
+    <el-table-column label="操作" width="200">
+      <template slot-scope="scope">
+        <el-button type="primary" size="mini" icon="el-icon-edit" @click.native.prevent="btn('edit',scope.row)">
+          编 辑
+        </el-button>
+        <el-button type="primary" size="mini" icon="el-icon-delete" @click.native.prevent="btn(remove,scope.row)">
+          删 除
+        </el-button>
+      </template>
+    </el-table-column>
+  </m-table>
+</div>
