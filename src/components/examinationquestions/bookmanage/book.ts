@@ -20,6 +20,7 @@ export default class book extends Vue {
     title: string = '标题';
     Arr: examinationquestionsclass[] = [];  //书结构
     Arrchaptertree: classchapter[] = [];  //文章树结构
+    treearr: Array<any> = [];  //文章树结构
     obj: examinationquestionsclass = new examinationquestionsclass();  //树结构对象
     chapterobj: classchapter = new classchapter();  //树结构对象
     loading: boolean = false;  //loading
@@ -29,6 +30,10 @@ export default class book extends Vue {
         children: 'children',
         label: 'title'
     }
+    defaultProps1: any = {
+        children: 'children',
+        label: 'label'
+    }
 
     mounted() {
         this.init();
@@ -37,6 +42,7 @@ export default class book extends Vue {
     init() {
         this.loading = true;
         this.getchaptertree();
+        this.getTreeclassification();
         src.post(api.getAllbookframework, null).then(res => {
             if (res) {
                 this.loading = false;
@@ -52,6 +58,15 @@ export default class book extends Vue {
         src.post(api.getAlltreechapter, null).then(res => {
             if (res) {
                 this.Arrchaptertree = res;
+            }
+        }).catch(e => {
+            this.$message.error(e);
+        })
+    }
+    getTreeclassification() {
+        src.post(api.getTreeclassification, null).then(res => {
+            if (res) {
+                this.treearr = res;
             }
         }).catch(e => {
             this.$message.error(e);
@@ -82,6 +97,9 @@ export default class book extends Vue {
     }
     handleNodeClick1(data) {
         this.chapterobj.bookId = data.AutoId;
+    }
+    handleNodeClick2(data) {
+        this.obj.upperlevel = data.AutoId;
     }
     /**
      * 新增
@@ -159,8 +177,22 @@ export default class book extends Vue {
             this.$nextTick(() => {
                 (this.$refs['chapterValidateForm'] as any).resetFields();
                 this.chapterobj.bookId = model.AutoId;
-                console.log(model.AutoId);
             });
+        } else if (status === 'edit') {
+            this.chapterdialogVisible = true;
+            this.chapterobj = row;
+        } else if (status === 'remove') {
+            this.$confirm('是否删除？')
+                .then(_ => {
+                    src.post(api.Delectchapter, row).then(res => {
+                        this.$message.success(res);
+                        this.init();
+                    }).catch(e => {
+                        this.$message.success(e);
+                    });
+                })
+                .catch(_ => {
+                });
         }
     }
 }

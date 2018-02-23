@@ -38,10 +38,8 @@
                 <el-input type="text" v-model="obj.title" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="类型" prop="upperlevel">
-                <el-select v-model="obj.upperlevel" placeholder="请选择" :clearable="true">
-                    <el-option v-for="item in Arr" :key="item.AutoId" :label="item.label" :value="item.AutoId" v-if="item.upperlevel===0">
-                    </el-option>
-                </el-select>
+                <el-tree :data="treearr" :props="defaultProps1" accordion @node-click="handleNodeClick2">
+                    </el-tree>
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
